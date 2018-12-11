@@ -10,16 +10,12 @@
 //
 
 #include <iostream>
-#include "list.h"
+#include "darray.h"
 
 int main() 
     {
-    lst <int> list;
-    std::cout << list.begin ();
-    list.push_back (2);
-    list.push_back (2);
-
-    for (auto i = list.begin (); i != list.end (); )
+    darray <int> darr;
+    //std::cout << darr.back ();
     
     return 0;
     }
