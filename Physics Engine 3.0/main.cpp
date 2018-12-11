@@ -10,10 +10,16 @@
 //
 
 #include <iostream>
+#include "list.h"
 
 int main() 
     {
+    lst <int> list;
+    std::cout << list.begin ();
+    list.push_back (2);
+    list.push_back (2);
+
+    for (auto i = list.begin (); i != list.end (); )
     
-    std::cout << "АГА, ПОПАЛСЯ!1!\n";
     return 0;
     }

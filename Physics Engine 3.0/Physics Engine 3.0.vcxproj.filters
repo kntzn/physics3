@@ -20,6 +20,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="darray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
