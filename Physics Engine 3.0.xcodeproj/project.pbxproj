@@ -23,6 +23,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		86872B7021C01225007F21E1 /* list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = list.h; sourceTree = "<group>"; };
+		86872B7121C01225007F21E1 /* darray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = darray.h; sourceTree = "<group>"; };
 		86AE0EC521BF09E100D250B1 /* Physics Engine 3.0 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Physics Engine 3.0"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86AE0EC821BF09E100D250B1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +60,8 @@
 			isa = PBXGroup;
 			children = (
 				86AE0EC821BF09E100D250B1 /* main.cpp */,
+				86872B7121C01225007F21E1 /* darray.h */,
+				86872B7021C01225007F21E1 /* list.h */,
 			);
 			path = "Physics Engine 3.0";
 			sourceTree = "<group>";
