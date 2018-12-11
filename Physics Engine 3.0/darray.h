@@ -6,7 +6,7 @@
 
 typedef size_t arrln;
 typedef signed int sarrln;
-#define SZ_DEFAULT 1000
+#define SZ_DEFAULT 5
 
 template <typename dataType> class darray
     {
@@ -19,7 +19,7 @@ template <typename dataType> class darray
         
     public:
         // Constructors and destructor
-        darray (arrln Size = STK_SZ_DEFAULT);
+        darray (arrln Size = SZ_DEFAULT);
         ~darray ();
         
         // Container getters
@@ -54,9 +54,13 @@ template <typename dataType> class darray
 template<typename dataType>
 inline bool darray<dataType>::allocate (dataType *& newContainer, arrln len)
     {
-    newContainer = nullptr;
+    if (!allocLen)
+        {
+        printf ("Size of array must be greater than zero\n");
+        return false;
+        }
 
-    msgassert (allocLen, "Size of array must be greater than zero\n");
+    newContainer = nullptr;
     newContainer = (dataType*)calloc (len, sizeof (dataType));
 
     if (newContainer == nullptr)
@@ -64,6 +68,7 @@ inline bool darray<dataType>::allocate (dataType *& newContainer, arrln len)
         printf ("Failed to allocate memory\n");
         return false;
         }
+
     return true;    
     }
 
@@ -90,7 +95,13 @@ inline darray<dataType>::~darray ()
 template<typename dataType>
 dataType & darray <dataType>::back ()
     {
-    msgassert (currentLen, "Unable to back ():\n\tArray is empty\n");
+    if (!currentLen)
+        {
+        printf ("Unable to back ():\n\tArray is empty\n");
+        assert (NULL);
+        }
+
+
     return container [currentLen - 1];
     }
 
