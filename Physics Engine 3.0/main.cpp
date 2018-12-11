@@ -10,6 +10,7 @@
 //
 
 #include <iostream>
+#include "FileIO 2.1 (24.06).h"
 
 struct State
     {
@@ -27,7 +28,7 @@ float acceleration (const State & state, double t)
     {
     const float k = 15.0f;
     const float b = 0.1f;
-    return -k * state.x - b * state.v;
+    return -k * state.x;// -b * state.v;
     }
 
 Derivative evaluate (const State & initial,
@@ -68,18 +69,28 @@ void integrate (State & state,
 
 int main() 
     {
-    
-    const double dt_c = 0.01;
+    const double dt_c = 0.1;
 
     State st;
     st.x = 0.f;
     st.v = 1.f;
 
-    for (int i = 0; i < 1000; i++)
+    std::string out;
+
+    for (int i = 0; i < 10000; i++)
         {
         integrate (st, 0, dt_c);
-        printf ("%f, ", st.x);
+    
+        st.v += (-15.f * st.x)*dt_c;
+        st.x += st.v*dt_c;
+
+        
+
+        std::cout << st.v*st.v*1 + 15.f*st.x*st.x;
+        std::cout << ", ";
         }
+
+    
 
     system ("pause");
 
