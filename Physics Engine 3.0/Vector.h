@@ -3,7 +3,7 @@
 #pragma once
 #include <math.h>
 #include "config.h"
-
+#include <iostream>
 
 template <typename dataType> class Vector
     {
@@ -29,14 +29,8 @@ template <typename dataType> class Vector
         operator PHYSENG_VECTOR_DATA_TYPE () const;
 
         // Getters
-        dataType length () const
-            {
-            return sqrt (x*x + y*y);
-            }
-        Vector dir ()
-            {
-            return Vector (x / length (), y / length ());
-            }
+        dataType length () const;
+        Vector dir () const;
 
         #ifdef SFML_VECTOR2_HPP
         
@@ -123,7 +117,20 @@ const bool operator != (const Vectord &left, const Vectord &right)
     {
     return !(left == right);
     }
+const bool operator ! (Vectord &left)
+    {
+    return !(bool) left;
+    }
+const bool operator && (Vectord &left, Vectord &right)
+    {
+    return (bool) left && (bool) right;
+    }
+const bool operator || (Vectord &left, Vectord &right)
+    {
+    return (bool) left || (bool) right;
+    }
 
+// Comparators
 const bool operator < (const Vectord &left, const Vectord &right)
     {
     return (left.length () < right.length ());
@@ -143,13 +150,41 @@ const bool operator >= (const Vectord &left, const Vectord &right)
 
 // Casts
 template <typename dataType> 
-Vector<dataType>::operator bool () const
+inline Vector<dataType>::operator bool () const
     {
     return (this->x != 0 && this->y != 0);
     }
-
 template<typename dataType>
 inline Vector<dataType>::operator PHYSENG_VECTOR_DATA_TYPE() const
     {
     return PHYSENG_VECTOR_DATA_TYPE (this->x + this->y);
+    }
+
+// Functions
+template<typename dataType>
+inline dataType Vector<dataType>::length () const
+    {
+    return dataType (sqrt (x*x + y*y));
+    }
+template<typename dataType>
+inline Vector<dataType> Vector<dataType>::dir () const
+    {
+    return *this / length ();
+    }
+
+// Stream operators
+std::ostream& operator << (std::ostream &s, Vectord &v)
+    {
+    s << '(' << v.x << "; " << v.y << ')';
+    return s;
+    }
+
+std::istream& operator >> (std::istream &s, Vectord &v)
+    {
+    std::cout << "Input vector values\nX:";
+    std::cin >> v.x;
+    std::cout << "Y:";
+    std::cin >> v.y;
+    std::cout << std::endl;
+    return s;
     }

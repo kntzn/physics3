@@ -1,6 +1,6 @@
 //
+//  Physics Engine 3.0
 //  main.cpp
-//  test
 //
 //  Created by Эльдар Дамиров on 10.12.2018.
 //  Copyright © 2018 Эльдар Дамиров. All rights reserved.
@@ -17,11 +17,11 @@
 
 int main() 
     {
-    Vectorf vec;
+    Vectord vec (10, 20);
 
+    std::cin >> vec;
 
-
-
+    std::cout << (double) vec;
 
     #ifdef __APPLE__
         getchar();
