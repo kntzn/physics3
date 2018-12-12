@@ -12,14 +12,16 @@
 #include <iostream>
 #include "list.h"
 
+#include "SFML/System.hpp"
+#include "Vector.h"
+
 int main() 
     {
-    lst <int> list;
-//    std::cout << list.begin ();
-    list.push_back (2);
-    list.push_back (2);
+    Vectorf vec;
 
-//    for (auto i = list.begin (); i != list.end (); )
+
+
+
 
     #ifdef __APPLE__
         getchar();
