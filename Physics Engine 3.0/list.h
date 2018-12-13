@@ -15,7 +15,8 @@ template <typename dataType> struct Node
         prev (nullptr),
         next (nullptr)
         {}
-    Node (dataType value, Node* left, Node* right):
+    Node (dataType val, Node* left, Node* right):
+        value (val),
         prev (left),
         next (right)
         {

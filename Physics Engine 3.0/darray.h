@@ -119,6 +119,7 @@ inline dataType & darray<dataType>::operator[](sarrln index)
     {
     if (index < 0)
         index = currentLen + index;
+    assert (0 <= index && index < currentLen);
 
     return container [index];
     }
