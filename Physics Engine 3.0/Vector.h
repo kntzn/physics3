@@ -5,6 +5,10 @@
 
 template <typename dataType> class Vector2
     {
+    private:
+        // Vectord = vector default
+        typedef Vector2 <PHYSENG_DATA_TYPE> Vectord;
+
     public:
         // Data
         dataType x, y;
@@ -23,16 +27,159 @@ template <typename dataType> class Vector2
             y (sin (alpha))
             { }
 
-        void operator = (const PHYSENG_DATA_TYPE &right);
-        
-        // Casts
-        operator bool () const;
-        operator PHYSENG_DATA_TYPE () const;
-
         // Getters
-        dataType length () const;
-        Vector2 dir () const;
+        dataType length () const
+            {
+            return dataType (sqrt (x*x + y*y));
+            }
+        Vector2 dir () const
+            {
+            return *this / length ();
+            }
 
+        // Casts
+        operator bool () const
+            {
+            return (this->x != 0 && this->y != 0);
+            }
+
+        void operator = (const PHYSENG_DATA_TYPE &right)
+            {
+            if (this->length ())
+                {
+                PHYSENG_DATA_TYPE k = right / this->length ();
+                this->x *= k;
+                this->y *= k;
+                }
+            }
+        
+        // Plus
+        Vectord operator + (const Vectord &right)
+            {
+            return Vectord (this->x + right.x,
+                            this->y + right.y);
+            }
+        Vectord operator + ()
+            {
+            return *this;
+            }
+        Vectord operator += (const Vectord &right)
+            {
+            return Vectord (this->x = this->x + right.x,
+                            this->y = this->y + right.y);
+            }
+        
+        // Minus
+        Vectord operator - (const Vectord &right)
+            {
+            return Vectord (this->x - right.x,
+                            this->y - right.y);
+            }
+        Vectord operator - ()
+            {
+            return Vectord (-this->x, -this->y);
+            }
+        Vectord operator -= (const Vectord &right)
+            {
+            return Vectord (this->x = this->x - right.x,
+                            this->y = this->y - right.y);
+            }
+
+        // Vector multiplication
+        PHYSENG_DATA_TYPE operator ^ (const Vectord &right)
+            {
+            return this->x*right.y - this->y*right.x;
+            }
+        // Scalar multiplication
+        PHYSENG_DATA_TYPE operator * (const Vectord &right)
+            {
+            return (PHYSENG_DATA_TYPE)(this->x * right.x + this->y * right.y);
+            }
+        Vectord operator * (const PHYSENG_DATA_TYPE &factor)
+            {
+            return Vectord (this->x*factor, this->y*factor);
+            }
+        Vectord operator *= (Vectord &right)
+            {
+            return Vectord (this->x = this->x*factor,
+                            this->y = this->y*factor);
+            }
+
+        // Scalar division
+        Vectord operator / (const PHYSENG_DATA_TYPE &factor)
+            {
+            if (factor)
+                return Vectord (this->x / factor, this->y / factor);
+            else
+                return Vectord (0, 0);
+            }
+        Vectord operator /= (Vectord &factor)
+            {
+            if (factor)
+                return Vectord (this->x = this->x / factor,
+                                this->y = this->y / factor);
+            else
+                return Vectord (0, 0);
+            }
+
+        // Comparators
+        const bool operator == (const Vectord &right)
+            {
+            return ((this->x == right.x) && (this->y == right.y));
+            }
+        const bool operator != (const Vectord &right)
+            {
+            return !(*this == right);
+            }
+        const bool operator < (Vectord &right)
+            {
+            return (this->length () < right.length ());
+            }
+        const bool operator <= (Vectord &right)
+            {
+            return (this->length () <= right.length ());
+            }
+        const bool operator > (Vectord &right)
+            {
+            return (this->length () > right.length ());
+            }
+        const bool operator >= (Vectord &right)
+            {
+            return (this->length () >= right.length ());
+            }
+        
+        // Logical operators
+        const bool operator ! ()
+            {
+            return ! ((bool) *this);
+            }
+        const bool operator && (Vectord &right)
+            {
+            return (((bool) *this) && ((bool)right));
+            }
+        const bool operator || (Vectord &right)
+            {
+            return (((bool) *this) || ((bool)right));
+            }
+        
+        // Stream operators
+        std::ostream& operator << (std::ostream &s)
+            {
+            s << '(' << this->x << "; " << this->y << ')';
+            return s;
+            }
+        std::istream& operator >> (std::istream &s)
+            {
+            std::cout << "Input vector values\nX:";
+            std::cin >> this->x;
+            std::cout << "Y:";
+            std::cin >> this->y;
+            std::cout << std::endl;
+            return s;
+            }
+        //operator PHYSENG_DATA_TYPE () const;
+
+        
         #ifdef SFML_VECTOR2_HPP
         
         sf::Vector2f toSf ()

@@ -10,15 +10,15 @@
 //
 #include <iostream>
 
-#include "Unit.h"
-#include "Vector2.h"
+#include "Vector.h"
 
 int main() 
     {
-    Unit mp (1, 1.0, 1.0);
+    Vectord a (10, 20);
+    Vectord b (0, 0);
 
-
-
+    std::cout << a << " " << b;
+    std::cout << " " << (a && b);
 
     #ifdef __APPLE__
         getchar();
