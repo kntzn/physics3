@@ -39,7 +39,7 @@ template <typename dataType> class lst
         // end
 
         // Modifiers
-        void push_back (dataType value);
+        //void push_back (dataType value);
 
         //bool pop_back ();
         //bool push_front (dataType value);
@@ -68,19 +68,4 @@ inline lst<dataType>::~lst ()
     {
     }
 
-template<typename dataType>
-inline void lst<dataType>::push_back (dataType value)
-    {
-    if (currentLen == 0)
-        {
-        Node <dataType>* ND = new Node <dataType> (value, nullptr, nullptr);
-        front = tail = ND;
-        }
 
-    else
-        {
-        Node <dataType>* ND = new Node <dataType> (value, tail, nullptr);
-        tail->next = ND;
-        tail = ND;
-        }
-    }

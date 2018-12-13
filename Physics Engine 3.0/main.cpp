@@ -8,20 +8,17 @@
 //  Improved by kntzn on 10.12.2018.
 //  Copyright © 2018 kntzn. All rights reserved.
 //
-
 #include <iostream>
-#include "list.h"
 
-#include "SFML/System.hpp"
-#include "Vector.h"
+#include "Unit.h"
+#include "Vector2.h"
 
 int main() 
     {
-    Vectord vec (10, 20);
+    Unit mp (1, 1.0, 1.0);
 
-    std::cin >> vec;
 
-    std::cout << (double) vec;
+
 
     #ifdef __APPLE__
         getchar();

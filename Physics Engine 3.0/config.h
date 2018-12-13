@@ -1,3 +1,3 @@
 #pragma once
 
-typedef double PHYSENG_VECTOR_DATA_TYPE;
+typedef double PHYSENG_DATA_TYPE;
