@@ -43,7 +43,7 @@ template <typename dataType> class Vector2
             return (this->x != 0 && this->y != 0);
             }
 
-        void operator = (const PHYSENG_DATA_TYPE &right)
+        void operator = (const PHYSENG_DATA_TYPE &right) const
             {
             if (this->length ())
                 {
@@ -54,66 +54,66 @@ template <typename dataType> class Vector2
             }
         
         // Plus
-        Vectord operator + (const Vectord &right)
+        Vectord operator + (const Vectord &right) const
             {
             return Vectord (this->x + right.x,
                             this->y + right.y);
             }
-        Vectord operator + ()
+        Vectord operator + () const
             {
             return *this;
             }
-        Vectord operator += (const Vectord &right)
+        Vectord operator += (const Vectord &right) const
             {
             return Vectord (this->x = this->x + right.x,
                             this->y = this->y + right.y);
             }
         
         // Minus
-        Vectord operator - (const Vectord &right)
+        Vectord operator - (const Vectord &right) const
             {
             return Vectord (this->x - right.x,
                             this->y - right.y);
             }
-        Vectord operator - ()
+        Vectord operator - () const
             {
             return Vectord (-this->x, -this->y);
             }
-        Vectord operator -= (const Vectord &right)
+        Vectord operator -= (const Vectord &right) const
             {
             return Vectord (this->x = this->x - right.x,
                             this->y = this->y - right.y);
             }
 
         // Vector multiplication
-        PHYSENG_DATA_TYPE operator ^ (const Vectord &right)
+        PHYSENG_DATA_TYPE operator ^ (const Vectord &right) const
             {
             return this->x*right.y - this->y*right.x;
             }
         // Scalar multiplication
-        PHYSENG_DATA_TYPE operator * (const Vectord &right)
+        PHYSENG_DATA_TYPE operator * (const Vectord &right) const
             {
             return (PHYSENG_DATA_TYPE)(this->x * right.x + this->y * right.y);
             }
-        Vectord operator * (const PHYSENG_DATA_TYPE &factor)
+        Vectord operator * (const PHYSENG_DATA_TYPE &factor) const
             {
             return Vectord (this->x*factor, this->y*factor);
             }
-        Vectord operator *= (Vectord &right)
+        Vectord operator *= (Vectord &right) const
             {
             return Vectord (this->x = this->x*factor,
                             this->y = this->y*factor);
             }
 
         // Scalar division
-        Vectord operator / (const PHYSENG_DATA_TYPE &factor)
+        Vectord operator / (const PHYSENG_DATA_TYPE &factor) const
             {
             if (factor)
                 return Vectord (this->x / factor, this->y / factor);
             else
                 return Vectord (0, 0);
             }
-        Vectord operator /= (Vectord &factor)
+        Vectord operator /= (Vectord &factor) const
             {
             if (factor)
                 return Vectord (this->x = this->x / factor,
@@ -123,52 +123,52 @@ template <typename dataType> class Vector2
             }
 
         // Comparators
-        const bool operator == (const Vectord &right)
+        const bool operator == (const Vectord &right) const
             {
             return ((this->x == right.x) && (this->y == right.y));
             }
-        const bool operator != (const Vectord &right)
+        const bool operator != (const Vectord &right) const
             {
             return !(*this == right);
             }
-        const bool operator < (Vectord &right)
+        const bool operator < (Vectord &right) const
             {
             return (this->length () < right.length ());
             }
-        const bool operator <= (Vectord &right)
+        const bool operator <= (Vectord &right) const
             {
             return (this->length () <= right.length ());
             }
-        const bool operator > (Vectord &right)
+        const bool operator > (Vectord &right) const
             {
             return (this->length () > right.length ());
             }
-        const bool operator >= (Vectord &right)
+        const bool operator >= (Vectord &right) const
             {
             return (this->length () >= right.length ());
             }
         
         // Logical operators
-        const bool operator ! ()
+        const bool operator ! () const
             {
             return ! ((bool) *this);
             }
-        const bool operator && (Vectord &right)
+        const bool operator && (Vectord &right) const
             {
             return (((bool) *this) && ((bool)right));
             }
-        const bool operator || (Vectord &right)
+        const bool operator || (Vectord &right) const
             {
             return (((bool) *this) || ((bool)right));
             }
         
         // Stream operators
-        std::ostream& operator << (std::ostream &s)
+        std::ostream& operator << (std::ostream &s) const
             {
             s << '(' << this->x << "; " << this->y << ')';
             return s;
             }
-        std::istream& operator >> (std::istream &s)
+        std::istream& operator >> (std::istream &s) const
             {
             std::cout << "Input vector values\nX:";
             std::cin >> this->x;
