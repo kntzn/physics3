@@ -118,7 +118,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MPoint.cpp" />
-    <ClCompile Include="Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h" />

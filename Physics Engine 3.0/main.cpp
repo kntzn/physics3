@@ -11,14 +11,13 @@
 #include <iostream>
 
 #include "Vector.h"
+#include "MPoint.h"
 
 int main() 
     {
-    Vectord a (10, 20);
-    Vectord b (0, 0);
+    MPoint mp (Vectord (0, 0), 1.0, .0);
 
-    std::cout << a << " " << b;
-    std::cout << " " << (a && b);
+    mp.~MPoint ();
 
     #ifdef __APPLE__
         getchar();
