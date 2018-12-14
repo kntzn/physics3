@@ -13,7 +13,9 @@ MPoint::~MPoint ()
     {
     }
 
-Derivative MPoint::evaluate (const State & initial, PHYSENG_DATA_TYPE dt, const Derivative & d)
+Derivative MPoint::evaluate (const State & initial, 
+                             PHYSENG_DATA_TYPE dt, 
+                             const Derivative & d)
     {
     State new_state;
     new_state.r = initial.r + d.dr*dt;
@@ -25,7 +27,7 @@ Derivative MPoint::evaluate (const State & initial, PHYSENG_DATA_TYPE dt, const 
     return output;
     }
 
-void MPoint::integrate (PHYSENG_DATA_TYPE dt)
+void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
     {
     Derivative a, b, c, d;
 
@@ -39,4 +41,42 @@ void MPoint::integrate (PHYSENG_DATA_TYPE dt)
 
     state.r += Vectord (drdt * dt);
     state.v += Vectord (dvdt * dt);
+    state.a = Vectord (0, 0);
+    }
+void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
+    {
+    state.v += Vectord (state.a * dt);
+    state.r += Vectord (state.v * dt);
+    state.a = Vectord (0, 0);
+    }
+
+void MPoint::applyForce (Vectord force)
+    {
+    state.a += force / m;
+    }
+void MPoint::accelerate (Vectord acceleration)
+    {
+    state.a += acceleration;
+    }
+
+Vectord MPoint::getPos ()
+    {
+    return state.r;
+    }
+Vectord MPoint::getVel ()
+    {
+    return state.v;
+    }
+PHYSENG_DATA_TYPE MPoint::getMass ()
+    {
+    return m;
+    }
+
+State MPoint::getState ()
+    {
+    return state;
+    }
+PHYSENG_DATA_TYPE MPoint::getKinEnergy ()
+    {
+    return PHYSENG_DATA_TYPE (state.v * state.v * m / 2.0);
     }

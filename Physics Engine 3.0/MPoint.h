@@ -26,17 +26,24 @@ class MPoint
                 Vectord velocity);
         ~MPoint ();
 
-    
-
         Derivative evaluate (const State & initial,
                              PHYSENG_DATA_TYPE dt,
                              const Derivative & d);
+        
+        // Integrators
+        void integrateRK4 (PHYSENG_DATA_TYPE dt);
+        void integrateEUL (PHYSENG_DATA_TYPE dt);
+
+        // Setters
+        void applyForce (Vectord force);
+        void accelerate (Vectord acceleration);
+
+        // Getters
+        Vectord getPos ();
+        Vectord getVel ();
+        PHYSENG_DATA_TYPE getMass ();
+
+        State getState ();
+        PHYSENG_DATA_TYPE getKinEnergy ();
             
-
-        void integrate (PHYSENG_DATA_TYPE dt);
-
-        State getState ()
-            {
-            return state;
-            }
     };
