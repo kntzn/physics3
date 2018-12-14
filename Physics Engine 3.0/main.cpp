@@ -24,7 +24,7 @@ struct Derivative
     float dv;      // dv/dt = ускорение
     };
 
-float acceleration (const State & state, double t)
+float acceleration (const State & state)
     {
     const float k = 15.0f;
     const float b = 0.1f;
@@ -32,7 +32,6 @@ float acceleration (const State & state, double t)
     }
 
 Derivative evaluate (const State & initial,
-                     double t,
                      float dt,
                      const Derivative & d)
     {
@@ -42,20 +41,19 @@ Derivative evaluate (const State & initial,
 
     Derivative output;
     output.dx = state.v;
-    output.dv = acceleration (state, t + dt);
+    output.dv = acceleration (state);
     return output;
     }
 
 void integrate (State & state,
-                double t,
                 float dt)
     {
     Derivative a, b, c, d;
 
-    a = evaluate (state, t, 0.0f, Derivative ());
-    b = evaluate (state, t, dt*0.5f, a);
-    c = evaluate (state, t, dt*0.5f, b);
-    d = evaluate (state, t, dt, c);
+    a = evaluate (state, 0.0f, Derivative ());
+    b = evaluate (state, dt*0.5f, a);
+    c = evaluate (state, dt*0.5f, b);
+    d = evaluate (state, dt, c);
 
     float dxdt = 1.0f / 6.0f *
         (a.dx + 2.0f * (b.dx + c.dx) + d.dx);
@@ -79,10 +77,10 @@ int main()
 
     for (int i = 0; i < 10000; i++)
         {
-        integrate (st, 0, dt_c);
+        integrate (st, dt_c);
     
-        st.v += (-15.f * st.x)*dt_c;
-        st.x += st.v*dt_c;
+        //st.v += (-15.f * st.x)*dt_c;
+        //st.x += st.v*dt_c;
 
         
 
