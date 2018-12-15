@@ -17,28 +17,37 @@ template <typename dataType> struct Node
         {
         }
         
-    Node (dataType val, Node* left, Node* right):
-        value (val),
-        prev (left),
-        next (right)
+    Node ( dataType value, Node* left, Node* right ):
+        value ( value ),
+        prev ( left ),
+        next ( right )
         {
         }
+        
     };
 
 template <typename dataType> class list
     {
     private:
-        size_t currentLenght = 0;
+        size_t currentLength = 0;
         size_t wholeSpaceReserved = 0;
         
         Node <dataType>* front = nullptr;
         Node <dataType>* tail = nullptr;
         
-        Node <dataType>* storage = nullptr;
-
+        
+        // ----Memory-safety precautions
+        dataType poisonValue = dynamic_cast <dataType> ( NULL );
+        Node <dataType> borderBack  = NULL;
+        Node <dataType> borderFront = NULL;
+        
+        // ----
+        
     public:
         // Constructors and destructor
-        list ( size_t reservedCapacity = 0 )
+        list ( size_t reservedCapacity = 0 ): 
+            borderBack ( poisonValue, &borderFront, this ),
+            borderFront ( poisonValue, this, &borderBack )
             {
             
             }
