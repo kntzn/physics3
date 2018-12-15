@@ -26,7 +26,7 @@ int main()
 
     for (int i = 0; i < 1000; i++)
         {
-        mp.integrate (0.001);
+        mp.integrateRK4 (0.001);
         
         //if (! (i%100))
         std::cout << mp.getState ().v*mp.getState ().v / 2.0 + 

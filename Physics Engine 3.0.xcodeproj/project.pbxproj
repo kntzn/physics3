@@ -32,6 +32,7 @@
 		86CC269421C5474200D6800F /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
 		86CC269521C5474300D6800F /* MPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPoint.h; sourceTree = "<group>"; };
 		86CC269621C5474300D6800F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		86CC269821C54AC900D6800F /* profiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profiler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 				86CC269321C5474200D6800F /* MPoint.cpp */,
 				86CC269521C5474300D6800F /* MPoint.h */,
 				86CC269421C5474200D6800F /* Vector.h */,
+				86CC269821C54AC900D6800F /* profiler.h */,
 			);
 			path = "Physics Engine 3.0";
 			sourceTree = "<group>";

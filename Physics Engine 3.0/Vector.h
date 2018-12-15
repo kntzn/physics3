@@ -101,8 +101,8 @@ template <typename dataType> class Vector2
             }
         Vectord operator *= (Vectord &right) const
             {
-            return Vectord (this->x = this->x*factor,
-                            this->y = this->y*factor);
+            return Vectord (this->x = this->x * factor,
+                            this->y = this->y * factor);
             }
 
         // Scalar division
