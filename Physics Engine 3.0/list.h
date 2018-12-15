@@ -13,11 +13,7 @@ template <typename dataType> struct Node
     Node* next;
     Node* prev;
 
-    Node():
-        prev (nullptr),
-        next (nullptr)
-        {
-        }
+
         
     Node ( dataType value = NULL, Node* left = nullptr, Node* right = nullptr ):
         value ( value ),
@@ -28,7 +24,7 @@ template <typename dataType> struct Node
         
     };
 
-template <typename dataType> class list
+template <typename dataType> class List
     {
     private:
         size_t currentLength = 0;
@@ -39,7 +35,7 @@ template <typename dataType> class list
         
         
         // ----Memory-safety precautions
-        dataType poisonValue = dynamic_cast <dataType> ( NULL );
+        dataType poisonValue = -777;
         Node <dataType>* borderBack  = nullptr;
         Node <dataType>* borderFront = nullptr;
         
@@ -48,24 +44,41 @@ template <typename dataType> class list
     public:
     
         // Constructors and destructor
-        list ( size_t reservedCapacity = 0 ): 
-            borderBack ( poisonValue, back, this ),
-            borderFront ( poisonValue, this, front ),
-            front ( poisonValue, borderFront, back ),
-            back ( poisonValue, borderBack, front )
+        List ( size_t reservedCapacity = 0 )
             {
+            front = new Node <dataType>();
+            back  = new Node <dataType>();
+            borderFront = new Node <dataType>();
+            borderBack  = new Node <dataType>();   
+            
+            clear();
+
             this->reservedCapacity = reservedCapacity;
             }
+            
+        void clear()
+            {
+            *front = { poisonValue, borderFront, back };
+            *back = { poisonValue, borderBack, front };
+            *borderFront = { poisonValue, borderFront, front };
+            *borderBack = { poisonValue, back, borderBack };
+            }
         
-        ~list ();
+        
+        size_t size()
+            {
+            return currentLength;
+            }
 
         
         void push_back ( dataType value )
             {
-            Node <dataType>* newElement ( value, back, borderBack );
+            Node <dataType>* newElement = new Node ( value, back, borderBack );
             back->next = newElement;
             
             back = newElement;
+            
+            currentLength++;
             }
         
         #ifdef prsVal
@@ -86,14 +99,18 @@ template <typename dataType> class list
             #ifdef prsVal
             return preservedValue;
             #endif 
+            
+            currentLength--;
             }
         
         void push_front ( dataType value )
             {
-            Node <dataType>* newElement ( value, borderFront, front );
+            Node <dataType>* newElement = new Node <dataType> ( value, borderFront, front );
             front->prev = newElement;
             
             front = newElement;
+            
+            currentLength++;
             }
             
         #ifdef prsVal
@@ -113,7 +130,9 @@ template <typename dataType> class list
             
             #ifdef prsVal
             return preservedValue;
-            #endif 
+            #endif
+            
+            currentLength--; 
             }
         
         
@@ -121,12 +140,19 @@ template <typename dataType> class list
             {
             Node <dataType>* currentElement = front;
             
+            index += 2;
+            
             for ( int i = 0; i < index; i++ )
                 {
                 currentElement = currentElement->next;
                 }
                
-            Node <dataType>* newElement ( value, currentElement->prev, currentElement );
+            Node <dataType>* newElement = new Node <dataType> ( value, currentElement->prev, currentElement );
+            
+            currentElement->prev->next = newElement;
+            currentElement->prev = newElement;
+            
+            currentLength++;
             }
             
         #ifdef prsVal
@@ -135,6 +161,8 @@ template <typename dataType> class list
         void erase ( size_t index )
         #endif
             {
+            index += 2;
+            
             Node <dataType>* currentElement = front;
             
             for ( int i = 0; i < index; i++ )
@@ -154,8 +182,25 @@ template <typename dataType> class list
             #ifdef prsVal
             return preservedValue;
             #endif 
+            
+            currentLength--;
             }
 
+
+        const dataType& operator[] ( size_t index ) const
+            {
+            Node <dataType>* currentElement = front;
+            
+            index += 2;
+            
+            for ( int i = 0; i < index; i++ )
+                {
+                currentElement = currentElement->next;
+                }
+                
+            return currentElement->value;
+            }
+        
         // TODO:
         // Container getters
         // begin
@@ -170,22 +215,11 @@ template <typename dataType> class list
         //bool erase (sarrln index); [DONE]
         
         // Size getters
-        //arrln size ();
-        //bool empty ();
-        //arrln capacity ();
+        //arrln size (); [DONE]
+        //bool empty (); [DONE]
+        //arrln capacity (); [POST-PONED]
         
         // Size setters
-        //void clear ();
+        //void clear (); [DONE]
 
     };
-
-
-//template<typename dataType>
-//inline lst<dataType>::lst ()
-//    {
-//    }
-//
-//template<typename dataType>
-//inline lst<dataType>::~lst ()
-//    {
-//    }
