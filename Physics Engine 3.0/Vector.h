@@ -101,8 +101,8 @@ template <typename dataType> class Vector2
             }
         Vectord operator *= (const PHYSENG_DATA_TYPE &factor) const
             {
-            return Vectord (this->x = this->x*factor,
-                            this->y = this->y*factor);
+            return Vectord (this->x = this->x * factor,
+                            this->y = this->y * factor);
             }
 
         // Scalar division

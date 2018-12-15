@@ -5,68 +5,221 @@
 #include <math.h>
 
 
+//#define prsVal // preserves and returns value during pop and erase operations;
+
 template <typename dataType> struct Node
     {
     dataType value;
     Node* next;
     Node* prev;
 
-    Node ():
-        prev (nullptr),
-        next (nullptr)
-        {}
-    Node (dataType val, Node* left, Node* right):
-        value (val),
-        prev (left),
-        next (right)
+
+        
+    Node ( dataType value = NULL, Node* left = nullptr, Node* right = nullptr ):
+        value ( value ),
+        prev ( left ),
+        next ( right )
         {
         }
+        
     };
 
-template <typename dataType> class lst
+template <typename dataType> class List
     {
     private:
-        size_t currentLen;
-        Node <dataType> * front, * tail;
-
+        size_t currentLength = 0;
+        size_t reservedCapacity = 0;
+        
+        Node <dataType>* front = nullptr;
+        Node <dataType>* back = nullptr;
+        
+        
+        // ----Memory-safety precautions
+        dataType poisonValue = -777;
+        Node <dataType>* borderBack  = nullptr;
+        Node <dataType>* borderFront = nullptr;
+        
+        // ----
+        
     public:
+    
         // Constructors and destructor
-        lst ();
-        ~lst ();
+        List ( size_t reservedCapacity = 0 )
+            {
+            front = new Node <dataType>();
+            back  = new Node <dataType>();
+            borderFront = new Node <dataType>();
+            borderBack  = new Node <dataType>();   
+            
+            clear();
 
+            this->reservedCapacity = reservedCapacity;
+            }
+            
+        void clear()
+            {
+            *front = { poisonValue, borderFront, back };
+            *back = { poisonValue, borderBack, front };
+            *borderFront = { poisonValue, borderFront, front };
+            *borderBack = { poisonValue, back, borderBack };
+            }
+        
+        
+        size_t size()
+            {
+            return currentLength;
+            }
+
+        
+        void push_back ( dataType value )
+            {
+            Node <dataType>* newElement = new Node ( value, back, borderBack );
+            back->next = newElement;
+            
+            back = newElement;
+            
+            currentLength++;
+            }
+        
+        #ifdef prsVal
+        dataType pop_back()
+        #else
+        void pop_back()
+        #endif
+            {
+            #ifdef prsVal
+            dataType preservedValue = back->value;
+            #endif 
+            
+            back = back->prev;
+            delete back->next;
+            
+            back->next = borderBack;
+            
+            #ifdef prsVal
+            return preservedValue;
+            #endif 
+            
+            currentLength--;
+            }
+        
+        void push_front ( dataType value )
+            {
+            Node <dataType>* newElement = new Node <dataType> ( value, borderFront, front );
+            front->prev = newElement;
+            
+            front = newElement;
+            
+            currentLength++;
+            }
+            
+        #ifdef prsVal
+        dataType pop_front()
+        #else
+        void pop_front()
+        #endif
+            {
+            #ifdef prsVal
+            dataType preservedValue = front->value;
+            #endif 
+            
+            front = back->next;
+            delete front->prev;
+            
+            front->prev = borderFront;
+            
+            #ifdef prsVal
+            return preservedValue;
+            #endif
+            
+            currentLength--; 
+            }
+        
+        
+        void insert ( dataType value, size_t index )
+            {
+            Node <dataType>* currentElement = front;
+            
+            index += 2;
+            
+            for ( int i = 0; i < index; i++ )
+                {
+                currentElement = currentElement->next;
+                }
+               
+            Node <dataType>* newElement = new Node <dataType> ( value, currentElement->prev, currentElement );
+            
+            currentElement->prev->next = newElement;
+            currentElement->prev = newElement;
+            
+            currentLength++;
+            }
+            
+        #ifdef prsVal
+        dataType erase ( size_t index )
+        #else
+        void erase ( size_t index )
+        #endif
+            {
+            index += 2;
+            
+            Node <dataType>* currentElement = front;
+            
+            for ( int i = 0; i < index; i++ )
+                {
+                currentElement = currentElement->next;
+                }
+                
+            #ifdef prsVal
+            dataType preservedValue = currentElement->value;
+            #endif 
+            
+            currentElement->prev->next = currentElement->next;
+            currentElement->next->prev = currentElement->prev;
+            
+            delete currentElement;
+            
+            #ifdef prsVal
+            return preservedValue;
+            #endif 
+            
+            currentLength--;
+            }
+
+
+        const dataType& operator[] ( size_t index ) const
+            {
+            Node <dataType>* currentElement = front;
+            
+            index += 2;
+            
+            for ( int i = 0; i < index; i++ )
+                {
+                currentElement = currentElement->next;
+                }
+                
+            return currentElement->value;
+            }
+        
         // TODO:
         // Container getters
         // begin
         // end
 
         // Modifiers
-        //void push_back (dataType value);
-
-        //bool pop_back ();
-        //bool push_front (dataType value);
-        //bool pop_front ();
-        //bool insert (dataType value, sarrln index);
-        //bool erase (sarrln index);
+        //void push_back (dataType value); [DONE]
+        //bool pop_back (); [DONE]
+        //bool push_front (dataType value); [DONE]
+        //bool pop_front (); [DONE]
+        //bool insert (dataType value, sarrln index); [DONE]
+        //bool erase (sarrln index); [DONE]
         
         // Size getters
-        //arrln size ();
-        //bool empty ();
-        //arrln capacity ();
+        //arrln size (); [DONE]
+        //bool empty (); [DONE]
+        //arrln capacity (); [POST-PONED]
         
         // Size setters
-        //void clear ();
+        //void clear (); [DONE]
 
     };
-
-
-template<typename dataType>
-inline lst<dataType>::lst ()
-    {
-    }
-
-template<typename dataType>
-inline lst<dataType>::~lst ()
-    {
-    }
-
-
