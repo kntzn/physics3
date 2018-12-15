@@ -99,7 +99,7 @@ template <typename dataType> class Vector2
             {
             return Vectord (this->x*factor, this->y*factor);
             }
-        Vectord operator *= (Vectord &right) const
+        Vectord operator *= (const PHYSENG_DATA_TYPE &factor) const
             {
             return Vectord (this->x = this->x*factor,
                             this->y = this->y*factor);
