@@ -5,7 +5,7 @@
 #include <math.h>
 
 
-//#define prsVal // preserves and returns value during pop operations;
+//#define prsVal // preserves and returns value during pop and erase operations;
 
 template <typename dataType> struct Node
     {
@@ -93,7 +93,7 @@ template <typename dataType> class list
             Node <dataType>* newElement ( value, borderFront, front );
             front->prev = newElement;
             
-            prev = newElement;
+            front = newElement;
             }
             
         #ifdef prsVal
@@ -116,6 +116,45 @@ template <typename dataType> class list
             #endif 
             }
         
+        
+        void insert ( dataType value, size_t index )
+            {
+            Node <dataType>* currentElement = front;
+            
+            for ( int i = 0; i < index; i++ )
+                {
+                currentElement = currentElement->next;
+                }
+               
+            Node <dataType>* newElement ( value, currentElement->prev, currentElement );
+            }
+            
+        #ifdef prsVal
+        dataType erase ( size_t index )
+        #else
+        void erase ( size_t index )
+        #endif
+            {
+            Node <dataType>* currentElement = front;
+            
+            for ( int i = 0; i < index; i++ )
+                {
+                currentElement = currentElement->next;
+                }
+                
+            #ifdef prsVal
+            dataType preservedValue = currentElement->value;
+            #endif 
+            
+            currentElement->prev->next = currentElement->next;
+            currentElement->next->prev = currentElement->prev;
+            
+            delete currentElement;
+            
+            #ifdef prsVal
+            return preservedValue;
+            #endif 
+            }
 
         // TODO:
         // Container getters
@@ -127,8 +166,8 @@ template <typename dataType> class list
         //bool pop_back (); [DONE]
         //bool push_front (dataType value); [DONE]
         //bool pop_front (); [DONE]
-        //bool insert (dataType value, sarrln index);
-        //bool erase (sarrln index);
+        //bool insert (dataType value, sarrln index); [DONE]
+        //bool erase (sarrln index); [DONE]
         
         // Size getters
         //arrln size ();
