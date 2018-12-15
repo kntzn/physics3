@@ -11,10 +11,12 @@ template <typename dataType> struct Node
     Node* next;
     Node* prev;
 
-    Node ():
+    Node():
         prev (nullptr),
         next (nullptr)
-        {}
+        {
+        }
+        
     Node (dataType val, Node* left, Node* right):
         value (val),
         prev (left),
@@ -23,16 +25,27 @@ template <typename dataType> struct Node
         }
     };
 
-template <typename dataType> class lst
+template <typename dataType> class list
     {
     private:
-        size_t currentLen;
-        Node <dataType> * front, * tail;
+        size_t currentLenght = 0;
+        size_t wholeSpaceReserved = 0;
+        
+        Node <dataType>* front = nullptr;
+        Node <dataType>* tail = nullptr;
+        
+        Node <dataType>* storage = nullptr;
 
     public:
         // Constructors and destructor
-        lst ();
-        ~lst ();
+        list ( size_t reservedCapacity = 0 )
+            {
+            
+            }
+        
+        ~list ();
+
+        
 
         // TODO:
         // Container getters
@@ -59,14 +72,12 @@ template <typename dataType> class lst
     };
 
 
-template<typename dataType>
-inline lst<dataType>::lst ()
-    {
-    }
-
-template<typename dataType>
-inline lst<dataType>::~lst ()
-    {
-    }
-
-
+//template<typename dataType>
+//inline lst<dataType>::lst ()
+//    {
+//    }
+//
+//template<typename dataType>
+//inline lst<dataType>::~lst ()
+//    {
+//    }
