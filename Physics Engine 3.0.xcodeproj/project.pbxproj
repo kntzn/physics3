@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		86AE0EC921BF09E100D250B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86AE0EC821BF09E100D250B1 /* main.cpp */; };
+		86CC269721C5474300D6800F /* MPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86CC269321C5474200D6800F /* MPoint.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,6 +28,10 @@
 		86872B7121C01225007F21E1 /* darray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = darray.h; sourceTree = "<group>"; };
 		86AE0EC521BF09E100D250B1 /* Physics Engine 3.0 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Physics Engine 3.0"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86AE0EC821BF09E100D250B1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		86CC269321C5474200D6800F /* MPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MPoint.cpp; sourceTree = "<group>"; };
+		86CC269421C5474200D6800F /* Vector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector.h; sourceTree = "<group>"; };
+		86CC269521C5474300D6800F /* MPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPoint.h; sourceTree = "<group>"; };
+		86CC269621C5474300D6800F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +67,10 @@
 				86AE0EC821BF09E100D250B1 /* main.cpp */,
 				86872B7121C01225007F21E1 /* darray.h */,
 				86872B7021C01225007F21E1 /* list.h */,
+				86CC269621C5474300D6800F /* config.h */,
+				86CC269321C5474200D6800F /* MPoint.cpp */,
+				86CC269521C5474300D6800F /* MPoint.h */,
+				86CC269421C5474200D6800F /* Vector.h */,
 			);
 			path = "Physics Engine 3.0";
 			sourceTree = "<group>";
@@ -122,6 +131,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86CC269721C5474300D6800F /* MPoint.cpp in Sources */,
 				86AE0EC921BF09E100D250B1 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
