@@ -13,6 +13,7 @@ MPoint::~MPoint ()
     {
     }
 
+/*
 Derivative MPoint::evaluate (const State & initial, 
                              PHYSENG_DATA_TYPE dt, 
                              const Derivative & d)
@@ -43,6 +44,7 @@ void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
     state.v += Vectord (dvdt * dt);
     state.a = Vectord (0, 0);
     }
+*/
 void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
     {
     state.v += Vectord (state.a * dt);

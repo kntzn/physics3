@@ -17,20 +17,12 @@ int main()
     const double dt_c = 0.1;
     MPoint mp (Vectord (0, 0), 1.0, Vectord (10, 0));
 
-    //mp.~MPoint ();
-
     std::string out;
 
     for (int i = 0; i < 10000; i++)
         {
-        mp.integrateRK4 (0.001);
-        
-        //if (! (i%100))
-        std::cout << mp.getState ().v*mp.getState ().v / 2.0 + 
-                     mp.getState ().r * mp.getState ().r * 10.0 / 2.0 << std::endl;
+        mp.integrateEUL (dt_c);
         }
-
-    
 
     system ("pause");
 
