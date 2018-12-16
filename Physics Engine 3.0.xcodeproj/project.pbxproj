@@ -33,6 +33,7 @@
 		86CC269521C5474300D6800F /* MPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPoint.h; sourceTree = "<group>"; };
 		86CC269621C5474300D6800F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		86CC269821C54AC900D6800F /* profiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profiler.h; sourceTree = "<group>"; };
+		86CC269A21C6317700D6800F /* ErrorController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ErrorController; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +50,7 @@
 		86AE0EBC21BF09E100D250B1 = {
 			isa = PBXGroup;
 			children = (
+				86CC269A21C6317700D6800F /* ErrorController */,
 				86AE0EC721BF09E100D250B1 /* Physics Engine 3.0 */,
 				86AE0EC621BF09E100D250B1 /* Products */,
 			);
