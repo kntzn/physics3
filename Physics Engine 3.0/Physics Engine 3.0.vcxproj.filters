@@ -38,6 +38,9 @@
     <ClInclude Include="MPoint.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="profiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileIO 2.1 (24.06).h">
