@@ -11,8 +11,8 @@ class stream
     stream()
         {}
 
-    ~stream()
-        {}
+    virtual ~stream()
+        {};
 
     virtual StreamErrorCodes read  (char* str, unsigned* length) = 0;
     virtual StreamErrorCodes write (const char* str, unsigned length) = 0;
