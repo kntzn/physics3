@@ -1,7 +1,5 @@
 #include "Spring.h"
 
-
-
 Spring::Spring (Vectord pos0, Vectord pos1, double k) :
     right (pos0),
     left (pos1),
@@ -15,14 +13,13 @@ Spring::~Spring ()
     {
     }
 
-Vectord Spring::getForceRight ()
-    {
-    return -force;
-    }
-
-Vectord Spring::getForceLeft ()
+Vectord Spring::getForceBegin ()
     {
     return force;
+    }
+Vectord Spring::getForceEnd ()
+    {
+    return -force;
     }
 
 void Spring::update (Vectord begin, Vectord end)

@@ -24,8 +24,8 @@ int main()
         {
         spr.update (mp.getPos (), mp1.getPos ());
         
-        mp.accelerate (spr.getForceLeft ());
-        mp1.accelerate (spr.getForceRight ());
+        mp.accelerate (spr.getForceBegin ());
+        mp1.accelerate (spr.getForceEnd ());
 
         mp.integrateEUL (dt_c);
         mp1.integrateEUL (dt_c);
