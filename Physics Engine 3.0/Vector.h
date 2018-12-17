@@ -113,7 +113,7 @@ template <typename dataType> class Vector2
             else
                 return Vectord (0, 0);
             }
-        Vectord operator /= (Vectord &factor) const
+        Vectord operator /= (const PHYSENG_DATA_TYPE &factor) const
             {
             if (factor)
                 return Vectord (this->x = this->x / factor,

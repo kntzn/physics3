@@ -116,11 +116,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Body.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MPoint.cpp" />
     <ClCompile Include="Spring.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Body.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="darray.h" />
     <ClInclude Include="list.h" />
@@ -128,9 +130,6 @@
     <ClInclude Include="profiler.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="Vector.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="FileIO 2.1 (24.06).h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

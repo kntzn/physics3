@@ -9,7 +9,6 @@
 //  Copyright © 2018 kntzn. All rights reserved.
 //
 #include <iostream>
-#include "FileIO 2.1 (24.06).h"
 #include "MPoint.h"
 #include "Spring.h"
 
