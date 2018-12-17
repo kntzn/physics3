@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MPoint.cpp" />
+    <ClCompile Include="Spring.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h" />
@@ -125,6 +126,7 @@
     <ClInclude Include="list.h" />
     <ClInclude Include="MPoint.h" />
     <ClInclude Include="profiler.h" />
+    <ClInclude Include="Spring.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
