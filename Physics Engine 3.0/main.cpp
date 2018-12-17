@@ -17,8 +17,6 @@ int main()
     const double dt_c = 0.1;
     MPoint mp (Vectord (0, 0), 1.0, Vectord (10, 0));
 
-    std::string out;
-
     for (int i = 0; i < 10000; i++)
         {
         mp.integrateEUL (dt_c);
