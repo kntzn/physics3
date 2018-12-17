@@ -19,11 +19,11 @@ class Spring
 
         // TODO:
         
-        //Vectord getForceRight ();
-        //Vectord getForceLeft ();
+        Vectord getForceRight ();
+        Vectord getForceLeft ();
 
         void update (Vectord begin, Vectord end);
         
-        //double getPotEnergy ();
+        double getPotEnergy ();
     };
 

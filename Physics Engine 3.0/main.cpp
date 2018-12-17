@@ -11,18 +11,28 @@
 #include <iostream>
 #include "FileIO 2.1 (24.06).h"
 #include "MPoint.h"
+#include "Spring.h"
 
 int main() 
     {
     const double dt_c = 0.1;
     MPoint mp (Vectord (0, 0), 1.0, Vectord (10, 0));
+    MPoint mp1 (Vectord (0, 0), 1.0, Vectord (-10, 0));
+    Spring spr (mp.getPos (), mp1.getPos (), 10.0);
 
-    for (int i = 0; i < 10000; i++)
+    for (int i = 0; i < 1000; i++)
         {
-        mp.integrateEUL (dt_c);
-        }
+        spr.update (mp.getPos (), mp1.getPos ());
+        
+        mp.accelerate (spr.getForceLeft ());
+        mp1.accelerate (spr.getForceRight ());
 
-    system ("pause");
+        mp.integrateEUL (dt_c);
+        mp1.integrateEUL (dt_c);
+
+        std::cout << spr.getPotEnergy () + mp.getKinEnergy () + mp1.getKinEnergy ()
+            << ", ";
+        }
 
     #ifdef __APPLE__
         getchar();

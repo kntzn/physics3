@@ -15,6 +15,16 @@ Spring::~Spring ()
     {
     }
 
+Vectord Spring::getForceRight ()
+    {
+    return -force;
+    }
+
+Vectord Spring::getForceLeft ()
+    {
+    return force;
+    }
+
 void Spring::update (Vectord begin, Vectord end)
     {
     Vectord deltaPos = end - begin;
@@ -31,4 +41,10 @@ void Spring::update (Vectord begin, Vectord end)
         max_dist = curr_dist;
     if (min_dist > curr_dist)
         min_dist = curr_dist;
+    }
+
+double Spring::getPotEnergy ()
+    {
+    // E = (   k  ) * (         dx^2        ) / 2
+    return hardness * delta_dist * delta_dist / 2.0;
     }
