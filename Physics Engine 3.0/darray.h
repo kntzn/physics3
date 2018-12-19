@@ -19,7 +19,7 @@ template <typename dataType> class darray
         
     public:
         // Constructors and destructor
-        //darray (darray <dataType> darrayToCopy);
+        darray (darray <dataType> &darrayToCopy);
         darray (arrln Size = SZ_DEFAULT);
         ~darray ();
         
@@ -74,6 +74,22 @@ inline bool darray<dataType>::allocate (dataType *& newContainer, arrln len)
     }
 
 // Constructors and destructors
+template<typename dataType>
+inline darray<dataType>::darray (darray <dataType> &darrayToCopy)
+    {
+    // Default values
+    allocLen = darrayToCopy.capacity ();
+    currentLen = darrayToCopy.size ();
+
+    // Allocates memory
+    allocate (container, allocLen);
+
+    // Copies values
+    for (int i = 0; i < currentLen; i++)
+        container [i] = darrayToCopy [i];
+    }
+
+
 template<typename dataType>
 inline darray<dataType>::darray (arrln Size)
     {
