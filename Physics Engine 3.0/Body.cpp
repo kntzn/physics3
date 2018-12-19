@@ -81,3 +81,36 @@ void Body::integrateEUL (double dt)
 
     angleState.aAngular = Vectord (0, 0);
     }
+
+Vectord Body::getPointPos (int point)
+    {
+    if (0 <= point && point < n_points)
+        {
+        // returns mass center + offset to point
+        return state.r + Vectord (points [point].y + angleState.angle) *
+                         points [point].x;
+        }
+
+    // In case of incorrect point id function returns mass center coordinates
+    return state.r;
+    }
+
+double Body::getRadius ()
+    {
+    return radius;
+    }
+
+size_t Body::nPoints ()
+    {
+    return n_points;
+    }
+
+double Body::getKinEnergy ()
+    {
+    //                (   Er  ) =
+    //  J * (               w^2                 ) / 2
+    PHYSENG_DATA_TYPE rotationE =
+        J * (angleState.omega * angleState.omega) / 2.0;
+
+    return MPoint::getKinEnergy () + rotationE;
+    }

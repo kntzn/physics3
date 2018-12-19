@@ -1,4 +1,7 @@
-#pragma once
+#ifndef _VECTOR_H
+
+#define _VECTOR_H
+
 #include <math.h>
 #include <iostream>
 #include "config.h"
@@ -162,21 +165,6 @@ template <typename dataType> class Vector2
             return (((bool) *this) || ((bool)right));
             }
         
-        // Stream operators
-        std::ostream& operator << (std::ostream &s) const
-            {
-            s << '(' << this->x << "; " << this->y << ')';
-            return s;
-            }
-        std::istream& operator >> (std::istream &s) const
-            {
-            std::cout << "Input vector values\nX:";
-            std::cin >> this->x;
-            std::cout << "Y:";
-            std::cin >> this->y;
-            std::cout << std::endl;
-            return s;
-            }
         //operator PHYSENG_DATA_TYPE () const;
 
         
@@ -193,3 +181,7 @@ template <typename dataType> class Vector2
 
 // Vectord = vector default
 typedef Vector2 <PHYSENG_DATA_TYPE> Vectord;
+
+#endif // !_VECTOR_H
+
+

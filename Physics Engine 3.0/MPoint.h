@@ -16,7 +16,7 @@ struct Derivative
 
 class MPoint
     {
-    private:
+    protected:
         State state;
         PHYSENG_DATA_TYPE m;
 

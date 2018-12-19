@@ -41,10 +41,9 @@ class Body : public MPoint
 
         void integrateEUL (double dt);
 
-        //Vectord getPointPos (int point);
-        //double getRadius ();
-        //size_t nPoints ();
-        //double getMass ();
-        //double getKinEnergy ();
+        Vectord getPointPos (int point);
+        double getRadius ();
+        size_t nPoints ();
+        double getKinEnergy ();
     };
 
