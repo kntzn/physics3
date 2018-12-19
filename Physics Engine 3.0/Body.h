@@ -6,7 +6,7 @@ struct AngleState
     {
     double angle;
     double omega;
-    
+    double aAngular;
     };
 
 class Body : public MPoint
@@ -30,16 +30,16 @@ class Body : public MPoint
 
     public:
         Body (Vectord position, PHYSENG_DATA_TYPE mass, Vectord velocity,
-              size_t nPoints, darray <Vectord> pointsArray);
+              size_t nPoints, darray <Vectord> &pointsArray);
         ~Body ();
 
-        //void applyForce (int point, Vectord Force, double dt);
-        //void applyAccel (int point, Vectord Accel, double dt);
+        void applyForce (int point, Vectord Force);
+        void applyAccel (int point, Vectord Accel);
 
         //void applyForceToVirtual (Vectord virtualPoint, Vectord Force, double dt);
         //void accelerateVirtual (Vectord virtualPoint, Vectord Accel, double dt);
 
-        //void update (double dt);
+        void integrateEUL (double dt);
 
         //Vectord getPointPos (int point);
         //double getRadius ();

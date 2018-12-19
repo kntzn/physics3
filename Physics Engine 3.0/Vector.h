@@ -79,7 +79,7 @@ template <typename dataType> class Vector2
             {
             return Vectord (-this->x, -this->y);
             }
-        Vectord operator -= (const Vectord &right) const
+        Vectord operator -= (const Vectord &right)
             {
             return Vectord (this->x = this->x - right.x,
                             this->y = this->y - right.y);

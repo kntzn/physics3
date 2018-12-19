@@ -39,7 +39,7 @@ class MPoint
         void integrateEUL (PHYSENG_DATA_TYPE dt);
 
         // Setters
-        void applyForce (Vectord force);
+        void addForce (Vectord force);
         void accelerate (Vectord acceleration);
 
         // Getters

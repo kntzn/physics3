@@ -7,6 +7,7 @@ MPoint::MPoint (Vectord position,
     state.r = position;
     m = mass;
     state.v = velocity;
+    state.a = Vectord (0, 0);
     }
 
 MPoint::~MPoint ()
@@ -52,7 +53,7 @@ void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
     state.a = Vectord (0, 0);
     }
 
-void MPoint::applyForce (Vectord force)
+void MPoint::addForce (Vectord force)
     {
     state.a += force / m;
     }

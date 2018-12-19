@@ -11,12 +11,20 @@
 #include <iostream>
 #include "MPoint.h"
 #include "Spring.h"
+#include "Body.h"
 
 int main() 
     {
     const double dt_c = 0.1;
-    MPoint mp (Vectord (0, 0), 1.0, Vectord (10, 0));
-    MPoint mp1 (Vectord (0, 0), 1.0, Vectord (-10, 0));
+
+    darray <Vectord> pArr;
+    pArr.push_back (Vectord (-0.5, -0.5));
+    pArr.push_back (Vectord (0.5, -0.5));
+    pArr.push_back (Vectord (0.5, 0.5));
+    pArr.push_back (Vectord (-0.5, 0.5));
+
+    Body mp (Vectord (-10, 0), 1.0, Vectord (10, 0), 4, pArr);
+    Body mp1 (Vectord (10, 0), 1.0, Vectord (-10, 0), 4, pArr);
     Spring spr (mp.getPos (), mp1.getPos (), 10.0);
 
     for (int i = 0; i < 1000; i++)

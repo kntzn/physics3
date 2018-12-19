@@ -1,9 +1,11 @@
 #include "Body.h"
+#define pi 3.14159
 
 Body::Body (Vectord position, PHYSENG_DATA_TYPE mass, Vectord velocity,
-            size_t nPoints, darray <Vectord> pointsArray) :
+            size_t nPoints, darray <Vectord> &pointsArray) :
     MPoint (position, mass, velocity),
-    n_points (nPoints)
+    n_points (nPoints),
+    points (pointsArray)
     {
     // Calculating coordinates of mass center
     Vectord mass_center;
@@ -31,13 +33,51 @@ Body::Body (Vectord position, PHYSENG_DATA_TYPE mass, Vectord velocity,
     J = 0;
     for (size_t i = 0; i < n_points; i++)
         J += points [i].x * points [i].x * (mass / n_points) / 3;
+
     }
 
 Body::~Body ()
     {
     }
 
-/*
+void Body::applyForce (int point, Vectord Force)
+    {
+    // Applying force directly to mass center:
+    MPoint::addForce (Force);
 
+    if (0 <= point && point < n_points)
+        {
+        // That part of the force that is able to rotate the body is equal to
+        // the scalar product of the force vector by the unit vector of angle
+        // (which is perpendicular to the radius vector from the point 
+        // to which the force is applied to the center of mass of the body) 
+        double activeForce = Force*Vectord (pi / 2 + angleState.angle + points [point].y);
 
-*/
+        // Angular velocity increases proprtional to Torque 
+        angleState.aAngular += (activeForce * points [point].x) / J;
+        }
+    }
+void Body::applyAccel (int point, Vectord Accel)
+    {
+    // Applying force directly to mass center:
+    MPoint::accelerate (Accel);
+
+    if (0 <= point && point < n_points)
+        {
+        double activeAccel = Accel*Vectord (pi / 2 + angleState.angle + points [point].y);
+
+        // Angular velocity increases proprtional to Torque 
+        angleState.aAngular += (activeAccel * points [point].x);
+        }
+    }
+
+void Body::integrateEUL (double dt)
+    {
+    MPoint::integrateEUL (dt);
+    
+    // Angular part
+    angleState.omega += angleState.aAngular * dt;
+    angleState.angle += angleState.omega * dt;
+
+    angleState.aAngular = Vectord (0, 0);
+    }
