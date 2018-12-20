@@ -127,6 +127,7 @@
     <ClInclude Include="darray.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="MPoint.h" />
+    <ClInclude Include="Pair.h" />
     <ClInclude Include="profiler.h" />
     <ClInclude Include="Spring.h" />
     <ClInclude Include="Vector.h" />

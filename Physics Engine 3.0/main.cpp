@@ -12,7 +12,7 @@
 #include "MPoint.h"
 #include "Spring.h"
 #include "Body.h"
-
+#include "Pair.h"
 
 int main() 
     {
