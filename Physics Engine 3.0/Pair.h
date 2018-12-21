@@ -1,4 +1,6 @@
 #pragma once
+#include "darray.h"
+#include "Body.h"
 
 class Pair
     {
@@ -11,6 +13,7 @@ class Pair
             }
 
     public:
-        virtual void update (std::vector <Body*> all_objects, double dt) = 0;
+        virtual void update (darray <Body*> all_objects, PHYSENG_DATA_TYPE dt) = 0;
 
         virtual double getPotEnergy () = 0;
+    };
