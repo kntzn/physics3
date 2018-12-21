@@ -85,7 +85,7 @@ inline darray<dataType>::darray (darray <dataType> &darrayToCopy)
     allocate (container, allocLen);
 
     // Copies values
-    for (int i = 0; i < currentLen; i++)
+    for (arrln i = 0; i < currentLen; i++)
         container [i] = darrayToCopy [i];
     }
 
@@ -137,7 +137,7 @@ inline dataType & darray<dataType>::operator[](sarrln index)
     if (index < 0)
         index += currentLen;
 
-    if (!(0 <= index && index < currentLen))
+    if (!(0 <= index && index < (sarrln)currentLen))
         printf ("index was %d / %d\n", index, currentLen);
     assert (0 <= index && index < currentLen);
 

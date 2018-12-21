@@ -27,6 +27,9 @@
     <ClCompile Include="Body.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SpringPair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="list.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Pair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringPair.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

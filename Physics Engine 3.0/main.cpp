@@ -12,7 +12,7 @@
 #include "MPoint.h"
 #include "Spring.h"
 #include "Body.h"
-#include "Pair.h"
+#include "SpringPair.h"
 
 int main() 
     {
@@ -27,6 +27,11 @@ int main()
     Body mp (Vectord (-10, 0), 1.0, Vectord (10, 0), 4, pArr);
     Body mp1 (Vectord (10, 0), 1.0, Vectord (-10, 0), 4, pArr);
     Spring spr (mp.getPos (), mp1.getPos (), 10.0);
+
+    darray <Body*> all_objects;
+
+    all_objects.push_back (new Body (mp));
+    all_objects.push_back (new Body (mp1));
 
     for (int i = 0; i < 1000; i++)
         {
