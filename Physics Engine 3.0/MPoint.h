@@ -16,7 +16,7 @@ struct Derivative
 
 class MPoint
     {
-    private:
+    protected:
         State state;
         PHYSENG_DATA_TYPE m;
 
@@ -26,16 +26,20 @@ class MPoint
                 Vectord velocity);
         ~MPoint ();
 
+        /*
+
         Derivative evaluate (const State & initial,
                              PHYSENG_DATA_TYPE dt,
                              const Derivative & d);
         
-        // Integrators
+        
         void integrateRK4 (PHYSENG_DATA_TYPE dt);
+        */
+
         void integrateEUL (PHYSENG_DATA_TYPE dt);
 
         // Setters
-        void applyForce (Vectord force);
+        void addForce (Vectord force);
         void accelerate (Vectord acceleration);
 
         // Getters

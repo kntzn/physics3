@@ -9,30 +9,46 @@
 //  Copyright © 2018 kntzn. All rights reserved.
 //
 #include <iostream>
-#include "FileIO 2.1 (24.06).h"
 #include "MPoint.h"
+#include "Spring.h"
+#include "Body.h"
+#include "SpringPair.h"
+
+#define printLine printf ("File %s\n\tLine %d\n\n", __FILE__, __LINE__)
 
 int main() 
     {
     const double dt_c = 0.1;
-    MPoint mp (Vectord (0, 0), 1.0, Vectord (10, 0));
 
-    //mp.~MPoint ();
-
-    std::string out;
-
-    for (int i = 0; i < 10000; i++)
-        {
-        mp.integrateRK4 (0.001);
-        
-        //if (! (i%100))
-        std::cout << mp.getState ().v*mp.getState ().v / 2.0 + 
-                     mp.getState ().r * mp.getState ().r * 10.0 / 2.0 << std::endl;
-        }
-
+    darray <Vectord> pArr;
     
+    pArr.push_back (Vectord (-0.5, 0.5));
+    pArr.push_back (Vectord (0.5, 0.5));
+    pArr.push_back (Vectord (0.5, -0.5));
+    pArr.push_back (Vectord (-0.5, -0.5));
 
-    system ("pause");
+    Body mp (Vectord (-10, 0), 10.0, Vectord (10, 0), 4, pArr);
+    Body mp1 (Vectord (10, 0), 10.0, Vectord (-10, 0), 4, pArr);
+
+    darray <Body*> all_objects;
+
+    all_objects.push_back (&mp);
+    all_objects.push_back (&mp1);
+
+    SpringPair sp (all_objects, 100.0, 0, 1, 2, 3);
+
+    all_objects.push_back (&mp);
+    all_objects.push_back (&mp1);
+
+    for (int i = 0; i < 1000; i++)
+        {
+        sp.update (all_objects, dt_c);
+      
+        mp.integrateEUL (dt_c);
+        mp1.integrateEUL (dt_c);
+
+        printf ("%lf, ", sp.getPotEnergy () + mp.getKinEnergy () + mp1.getKinEnergy ());
+        }
 
     #ifdef __APPLE__
         getchar();

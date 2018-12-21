@@ -19,6 +19,7 @@ template <typename dataType> class darray
         
     public:
         // Constructors and destructor
+        darray (darray <dataType> &darrayToCopy);
         darray (arrln Size = SZ_DEFAULT);
         ~darray ();
         
@@ -74,6 +75,22 @@ inline bool darray<dataType>::allocate (dataType *& newContainer, arrln len)
 
 // Constructors and destructors
 template<typename dataType>
+inline darray<dataType>::darray (darray <dataType> &darrayToCopy)
+    {
+    // Default values
+    allocLen = darrayToCopy.capacity ();
+    currentLen = darrayToCopy.size ();
+
+    // Allocates memory
+    allocate (container, allocLen);
+
+    // Copies values
+    for (arrln i = 0; i < currentLen; i++)
+        container [i] = darrayToCopy [i];
+    }
+
+
+template<typename dataType>
 inline darray<dataType>::darray (arrln Size)
     {
     // Default values
@@ -87,7 +104,7 @@ inline darray<dataType>::darray (arrln Size)
 template<typename dataType>
 inline darray<dataType>::~darray ()
     {
-    free (container);
+    delete container;
     }
 
 
@@ -118,8 +135,11 @@ template<typename dataType>
 inline dataType & darray<dataType>::operator[](sarrln index)
     {
     if (index < 0)
-        index = currentLen + index;
-    assert (0 <= index && index < currentLen);
+        index += currentLen;
+
+    if (!(0 <= index && index < (int) currentLen))
+        printf ("index was %d / %d\n", index, currentLen);
+    assert (0 <= index && index < (int) currentLen);
 
     return container [index];
     }
@@ -130,7 +150,7 @@ template<typename dataType>
 inline bool darray<dataType>::push_back (dataType value)
     {
     if (currentLen == allocLen - 1)
-        if (!resize ((allocLen * stretch_k) + 1))
+        if (!resize ((allocLen * 3 / 2) + 1))
             return false;
 
     container [currentLen] = value;
@@ -266,7 +286,7 @@ bool darray<dataType>::resize (arrln newSize)
         if (allocate (newContainer, newSize))
             {
             // Copies the memory
-            for (int i = 0; i < currentLen; i++)
+            for (arrln i = 0; i < currentLen; i++)
                 newContainer [i] = container [i];
 
             allocLen = newSize;

@@ -7,12 +7,14 @@ MPoint::MPoint (Vectord position,
     state.r = position;
     m = mass;
     state.v = velocity;
+    state.a = Vectord (0, 0);
     }
 
 MPoint::~MPoint ()
     {
     }
 
+/*
 Derivative MPoint::evaluate (const State & initial, 
                              PHYSENG_DATA_TYPE dt, 
                              const Derivative & d)
@@ -43,6 +45,7 @@ void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
     state.v += Vectord (dvdt * dt);
     state.a = Vectord (0, 0);
     }
+*/
 void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
     {
     state.v += Vectord (state.a * dt);
@@ -50,7 +53,7 @@ void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
     state.a = Vectord (0, 0);
     }
 
-void MPoint::applyForce (Vectord force)
+void MPoint::addForce (Vectord force)
     {
     state.a += force / m;
     }
