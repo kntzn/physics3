@@ -16,4 +16,3 @@ class SpringPair : public Spring, public Pair
 
         PHYSENG_DATA_TYPE getPotEnergy ();
     };
-

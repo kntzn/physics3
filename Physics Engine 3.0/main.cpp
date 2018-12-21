@@ -14,39 +14,40 @@
 #include "Body.h"
 #include "SpringPair.h"
 
+#define printLine printf ("File %s\n\tLine %d\n\n", __FILE__, __LINE__)
+
 int main() 
     {
     const double dt_c = 0.1;
 
     darray <Vectord> pArr;
-    pArr.push_back (Vectord (-0.5, -0.5));
-    pArr.push_back (Vectord (0.5, -0.5));
-    pArr.push_back (Vectord (0.5, 0.5));
+    
     pArr.push_back (Vectord (-0.5, 0.5));
+    pArr.push_back (Vectord (0.5, 0.5));
+    pArr.push_back (Vectord (0.5, -0.5));
+    pArr.push_back (Vectord (-0.5, -0.5));
 
-    Body mp (Vectord (-10, 0), 1.0, Vectord (10, 0), 4, pArr);
-    Body mp1 (Vectord (10, 0), 1.0, Vectord (-10, 0), 4, pArr);
-    Spring spr (mp.getPos (), mp1.getPos (), 10.0);
+    Body mp (Vectord (-10, 0), 10.0, Vectord (10, 0), 4, pArr);
+    Body mp1 (Vectord (10, 0), 10.0, Vectord (-10, 0), 4, pArr);
 
     darray <Body*> all_objects;
 
-    SpringPair sp (all_objects, 100.0, 0, 1, -1, -1);
+    all_objects.push_back (&mp);
+    all_objects.push_back (&mp1);
 
-    all_objects.push_back (new Body (mp));
-    all_objects.push_back (new Body (mp1));
+    SpringPair sp (all_objects, 100.0, 0, 1, 2, 3);
+
+    all_objects.push_back (&mp);
+    all_objects.push_back (&mp1);
 
     for (int i = 0; i < 1000; i++)
         {
-        spr.update (mp.getPos (), mp1.getPos ());
-        
-        mp.accelerate (spr.getForceBegin ());
-        mp1.accelerate (spr.getForceEnd ());
-
+        sp.update (all_objects, dt_c);
+      
         mp.integrateEUL (dt_c);
         mp1.integrateEUL (dt_c);
 
-        std::cout << spr.getPotEnergy () + mp.getKinEnergy () + mp1.getKinEnergy ()
-            << ", ";
+        printf ("%lf, ", sp.getPotEnergy () + mp.getKinEnergy () + mp1.getKinEnergy ());
         }
 
     #ifdef __APPLE__
