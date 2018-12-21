@@ -1,6 +1,6 @@
 #include "Spring.h"
 
-Spring::Spring (Vectord pos0, Vectord pos1, double k) :
+Spring::Spring (Vectord pos0, Vectord pos1, PHYSENG_DATA_TYPE k) :
     right (pos0),
     left (pos1),
     hardness (k)
@@ -40,7 +40,7 @@ void Spring::update (Vectord begin, Vectord end)
         min_dist = curr_dist;
     }
 
-double Spring::getPotEnergy ()
+PHYSENG_DATA_TYPE Spring::getPotEnergy ()
     {
     // E = (   k  ) * (         dx^2        ) / 2
     return hardness * delta_dist * delta_dist / 2.0;

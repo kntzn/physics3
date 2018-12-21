@@ -30,6 +30,8 @@ int main()
 
     darray <Body*> all_objects;
 
+    SpringPair sp (all_objects, 100.0, 0, 1, -1, -1);
+
     all_objects.push_back (new Body (mp));
     all_objects.push_back (new Body (mp1));
 

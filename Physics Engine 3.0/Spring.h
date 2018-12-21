@@ -16,7 +16,7 @@ class Spring
                max_dist,  min_dist;
     public:
         // Constructor and destructor
-        Spring (Vectord pos0, Vectord pos1, double k);
+        Spring (Vectord pos0, Vectord pos1, PHYSENG_DATA_TYPE k);
         ~Spring ();
 
         // Force at spring's ends getters
@@ -27,6 +27,6 @@ class Spring
         void update (Vectord begin, Vectord end);
         
         // Returns potential energy of the spring
-        double getPotEnergy ();
+        PHYSENG_DATA_TYPE getPotEnergy ();
     };
 
