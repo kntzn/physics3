@@ -45,7 +45,7 @@ void Body::applyForce (int point, Vectord Force)
     // Applying force directly to mass center:
     MPoint::addForce (Force);
 
-    if (0 <= point && point < n_points)
+    if (0 <= point && point < (int) n_points)
         {
         // That part of the force that is able to rotate the body is equal to
         // the scalar product of the force vector by the unit vector of angle
@@ -62,7 +62,7 @@ void Body::applyAccel (int point, Vectord Accel)
     // Applying force directly to mass center:
     MPoint::accelerate (Accel);
 
-    if (0 <= point && point < n_points)
+    if (0 <= point && point < (int) n_points)
         {
         double activeAccel = Accel*Vectord (pi / 2 + angleState.angle + points [point].y);
 
@@ -84,7 +84,7 @@ void Body::integrateEUL (double dt)
 
 Vectord Body::getPointPos (int point)
     {
-    if (0 <= point && point < n_points)
+    if (0 <= point && point < (int) n_points)
         {
         // returns mass center + offset to point
         return state.r + Vectord (points [point].y + angleState.angle) *
