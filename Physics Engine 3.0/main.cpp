@@ -73,24 +73,37 @@ int main()
     }
 
 
-void RK4 (darray <Body*> all_objects, 
-          darray <Pair*> object_pairs)
-/*
+//void RK4 (darray <Body*> all_objects,
+//        darray <Pair*> object_pairs);
+
 Derivative evaluate (const State & initial,
                      PHYSENG_DATA_TYPE dt,
                      const Derivative & d)
-{
-State new_state;
-new_state.r = initial.r + d.dr*dt;
-new_state.v = initial.v + d.dv*dt;
+    {
+    State new_state;
+    new_state.r = initial.r + d.dr*dt;
+    new_state.v = initial.v + d.dv*dt;
 
-Derivative output;
-output.dr = new_state.v;
-output.dv = (-new_state.r* 10.0);
-return output;
-}
+    new_state.angle = initial.angle + d.dr*dt;
+    new_state.omega = initial.omega + d.dv*dt;
+
+    // the biggest problem 
+    // acceleration values
+    new_state.a;
+    new_state.aAng;
 
 
+    Derivative output;
+    output.dr = new_state.v;
+    output.dAng = new_state.omega;
+
+    output.dv = new_state.a;
+    output.dw = new_state.aAng;
+
+    return output;
+    }
+
+/*
 void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
     {
     Derivative a, b, c, d;

@@ -22,8 +22,8 @@ struct Derivative
     Vectord dv;
 
     // Angle
-    Vectord dAng;
-    Vectord dOmega;
+    PHYSENG_DATA_TYPE dAng;
+    PHYSENG_DATA_TYPE dw;
     };
 
 class MPoint
