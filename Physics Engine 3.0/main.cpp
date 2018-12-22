@@ -18,7 +18,7 @@
 
 int main() 
     {
-    const double dt_c = 0.1;
+    const double dt_c = 0.01;
 
     darray <Vectord> pArr;
     
@@ -31,23 +31,34 @@ int main()
     Body mp1 (Vectord (10, 0), 10.0, Vectord (-10, 0), 4, pArr);
 
     darray <Body*> all_objects;
+    darray <Pair*> object_pairs;
 
     all_objects.push_back (&mp);
     all_objects.push_back (&mp1);
 
     SpringPair sp (all_objects, 100.0, 0, 1, 2, 3);
 
+    object_pairs.push_back (&sp);
+
     all_objects.push_back (&mp);
     all_objects.push_back (&mp1);
 
     for (int i = 0; i < 1000; i++)
         {
-        sp.update (all_objects, dt_c);
+        for (arrln i = 0; i < object_pairs.size (); i++)
+            object_pairs [i]->update (all_objects, dt_c);
       
-        mp.integrateEUL (dt_c);
-        mp1.integrateEUL (dt_c);
+        for (arrln i = 0; i < all_objects.size (); i++)
+            all_objects [i]->integrateEUL (dt_c);
 
-        printf ("%lf, ", sp.getPotEnergy () + mp.getKinEnergy () + mp1.getKinEnergy ());
+        PHYSENG_DATA_TYPE e = 0;
+
+        for (arrln i = 0; i < all_objects.size (); i++)
+            e += all_objects [i]->getKinEnergy ();
+        for (arrln i = 0; i < object_pairs.size (); i++)
+            e += object_pairs [i]->getPotEnergy ();
+
+        printf ("%lf, ", e);
         }
 
     #ifdef __APPLE__
