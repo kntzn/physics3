@@ -72,6 +72,9 @@ int main()
     return 0;
     }
 
+
+void RK4 (darray <Body*> all_objects, 
+          darray <Pair*> object_pairs)
 /*
 Derivative evaluate (const State & initial,
                      PHYSENG_DATA_TYPE dt,

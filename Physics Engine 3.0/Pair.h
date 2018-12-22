@@ -6,10 +6,15 @@ class Pair
     {
     protected:
         int id_left = -1, id_right = -1;
-        Pair (size_t left, size_t right)
+        Vectord accelLeft, accelRight;
+
+        // я спал 2 часа, опасно
+        Pair (size_t left, size_t right):
+            accelLeft (Vectord (0, 0)),
+            accelRight (Vectord (0, 0)),
+            id_left (left),
+            id_right (right)
             {
-            id_left = left;
-            id_right = right;
             }
 
     public:

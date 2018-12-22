@@ -23,9 +23,14 @@ Derivative MPoint::evaluate (const State & initial,
     new_state.r = initial.r + d.dr*dt;
     new_state.v = initial.v + d.dv*dt;
 
+    new_state.angle = initial.angle + d.dr*dt;
+    new_state.omega = initial.omega + d.dv*dt;
+
     Derivative output;
     output.dr = new_state.v;
-    output.dv = (-new_state.r* 10.0);
+    output.dv = acceleration () ;
+
+
     return output;
     }
 

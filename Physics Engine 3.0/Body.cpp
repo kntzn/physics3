@@ -71,11 +71,6 @@ void Body::applyAccel (int point, Vectord Accel)
         }
     }
 
-void Body::integrateEUL (double dt)
-    {
-    MPoint::integrateEUL (dt);
-    }
-
 Vectord Body::getPointPos (int point)
     {
     if (0 <= point && point < (int) n_points)

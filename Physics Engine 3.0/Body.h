@@ -30,12 +30,11 @@ class Body : public MPoint
         //void applyForceToVirtual (Vectord virtualPoint, Vectord Force, double dt);
         //void accelerateVirtual (Vectord virtualPoint, Vectord Accel, double dt);
 
-        void integrateEUL (double dt);
-
         Vectord getPointPos (int point);
         double getRadius ();
         size_t nPoints ();
         double getKinEnergy ();
 
+        // returns pointer to the state
         State * getState ();
     };
