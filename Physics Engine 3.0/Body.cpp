@@ -51,10 +51,10 @@ void Body::applyForce (int point, Vectord Force)
         // the scalar product of the force vector by the unit vector of angle
         // (which is perpendicular to the radius vector from the point 
         // to which the force is applied to the center of mass of the body) 
-        double activeForce = Force*Vectord (pi / 2 + angleState.angle + points [point].y);
+        double activeForce = Force*Vectord (pi / 2 + state.angle + points [point].y);
 
         // Angular velocity increases proprtional to Torque 
-        angleState.aAngular += (activeForce * points [point].x) / J;
+        state.aAng += (activeForce * points [point].x) / J;
         }
     }
 void Body::applyAccel (int point, Vectord Accel)
@@ -64,22 +64,16 @@ void Body::applyAccel (int point, Vectord Accel)
 
     if (0 <= point && point < (int) n_points)
         {
-        double activeAccel = Accel*Vectord (pi / 2 + angleState.angle + points [point].y);
+        double activeAccel = Accel*Vectord (pi / 2 + state.angle + points [point].y);
 
         // Angular velocity increases proprtional to Torque 
-        angleState.aAngular += (activeAccel * points [point].x);
+        state.aAng += (activeAccel * points [point].x);
         }
     }
 
 void Body::integrateEUL (double dt)
     {
     MPoint::integrateEUL (dt);
-    
-    // Angular part
-    angleState.omega += angleState.aAngular * dt;
-    angleState.angle += angleState.omega * dt;
-
-    angleState.aAngular = Vectord (0, 0);
     }
 
 Vectord Body::getPointPos (int point)
@@ -87,7 +81,7 @@ Vectord Body::getPointPos (int point)
     if (0 <= point && point < (int) n_points)
         {
         // returns mass center + offset to point
-        return state.r + Vectord (points [point].y + angleState.angle) *
+        return state.r + Vectord (points [point].y + state.angle) *
                          points [point].x;
         }
 
@@ -110,7 +104,12 @@ double Body::getKinEnergy ()
     //                (   Er  ) =
     //  J * (               w^2                 ) / 2
     PHYSENG_DATA_TYPE rotationE =
-        J * (angleState.omega * angleState.omega) / 2.0;
+        J * (state.omega * state.omega) / 2.0;
 
     return MPoint::getKinEnergy () + rotationE;
+    }
+
+State * Body::getState ()
+    {
+    return &state;
     }

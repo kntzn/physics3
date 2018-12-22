@@ -1,17 +1,29 @@
 #pragma once
 #include "Vector.h"
+#include "darray.h"
 
 struct State
     {
+    // Coords
     Vectord r;
     Vectord v;
     Vectord a;
+
+    // Angle
+    PHYSENG_DATA_TYPE angle;
+    PHYSENG_DATA_TYPE omega;
+    PHYSENG_DATA_TYPE aAng;
     };
 
 struct Derivative
     {
+    // Coords
     Vectord dr;
     Vectord dv;
+
+    // Angle
+    Vectord dAng;
+    Vectord dOmega;
     };
 
 class MPoint
@@ -25,16 +37,6 @@ class MPoint
                 PHYSENG_DATA_TYPE mass,
                 Vectord velocity);
         ~MPoint ();
-
-        /*
-
-        Derivative evaluate (const State & initial,
-                             PHYSENG_DATA_TYPE dt,
-                             const Derivative & d);
-        
-        
-        void integrateRK4 (PHYSENG_DATA_TYPE dt);
-        */
 
         void integrateEUL (PHYSENG_DATA_TYPE dt);
 

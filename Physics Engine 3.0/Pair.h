@@ -16,4 +16,9 @@ class Pair
         virtual void update (darray <Body*> all_objects, PHYSENG_DATA_TYPE dt) = 0;
 
         virtual double getPotEnergy () = 0;
+
+        int getIdxLeft ()
+            { return id_left; }
+        int getIdxRight ()
+            { return id_right; }
     };

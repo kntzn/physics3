@@ -2,13 +2,6 @@
 #include "MPoint.h"
 #include "darray.h"
 
-struct AngleState
-    {
-    double angle;
-    double omega;
-    double aAngular;
-    };
-
 class Body : public MPoint
     {
     protected:
@@ -20,8 +13,6 @@ class Body : public MPoint
         // Number of points
         size_t n_points;
 
-        // Angle of the body
-        AngleState angleState;
         // Inertia moment
         double J;
 
@@ -45,5 +36,6 @@ class Body : public MPoint
         double getRadius ();
         size_t nPoints ();
         double getKinEnergy ();
-    };
 
+        State * getState ();
+    };

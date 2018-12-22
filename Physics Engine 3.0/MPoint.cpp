@@ -29,6 +29,7 @@ Derivative MPoint::evaluate (const State & initial,
     return output;
     }
 
+
 void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
     {
     Derivative a, b, c, d;
@@ -45,13 +46,18 @@ void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
     state.v += Vectord (dvdt * dt);
     state.a = Vectord (0, 0);
     }
-*/
+ */
+
 void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
     {
     state.v += Vectord (state.a * dt);
     state.r += Vectord (state.v * dt);
     state.a = Vectord (0, 0);
-    }
+
+    state.angle += state.omega * dt;
+    state.omega += state.aAng * dt;
+    state.aAng = 0.0;
+    }   
 
 void MPoint::addForce (Vectord force)
     {
@@ -83,3 +89,4 @@ PHYSENG_DATA_TYPE MPoint::getKinEnergy ()
     {
     return PHYSENG_DATA_TYPE (state.v * state.v * m / 2.0);
     }
+
