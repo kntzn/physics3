@@ -16,6 +16,11 @@
 
 #define printLine printf ("File %s\n\tLine %d\n\n", __FILE__, __LINE__)
 
+Vectord acceleration (State state,
+                      darray <Body*> &all_objects,
+                      darray <Pair*> &object_pairs,
+                      Body* body);
+
 int main() 
     {
     const double dt_c = 0.01;
@@ -45,12 +50,21 @@ int main()
 
     for (int i = 0; i < 1000; i++)
         {
+        /*
         for (arrln i = 0; i < object_pairs.size (); i++)
             object_pairs [i]->update (all_objects);
       
         for (arrln i = 0; i < all_objects.size (); i++)
             all_objects [i]->integrateEUL (dt_c);
+*/
+        State state;
+        state.r = Vectord (-10.0 - double (i) / 100, 0);
 
+        Vectord acc = acceleration (state, all_objects, object_pairs, all_objects [0]);
+
+        
+
+        /*
         PHYSENG_DATA_TYPE e = 0;
 
         for (arrln i = 0; i < all_objects.size (); i++)
@@ -58,7 +72,7 @@ int main()
         for (arrln i = 0; i < object_pairs.size (); i++)
             e += object_pairs [i]->getPotEnergy ();
 
-        printf ("%lf, ", e);
+        printf ("%lf, ", e);*/
         }
 
 
@@ -79,3 +93,25 @@ void updateAllPairs (darray <Body*> &all_objects,
         object_pairs [i]->update (all_objects);
     }
 
+Vectord acceleration (State state,
+                      darray <Body*> &all_objects,
+                      darray <Pair*> &object_pairs,
+                      Body* body)
+    {
+    State initial = *(body->getState ());
+
+    state.a = Vectord (0, 0);
+    *(body->getState ()) = state;
+
+ 
+    for (int i = 0; i < object_pairs.size (); i++)
+        if (object_pairs [i]->getLeft () == body ||
+            object_pairs [i]->getRight () == body)
+            object_pairs [i]->update (all_objects);
+
+    Vectord output = body->getState ()->a;
+    
+    *(body->getState ()) = initial;
+    
+    return output;
+    }

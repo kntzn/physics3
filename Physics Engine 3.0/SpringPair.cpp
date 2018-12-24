@@ -3,7 +3,6 @@
 SpringPair::SpringPair (darray <Body*> all_objects, PHYSENG_DATA_TYPE hardness,
                         size_t idxLeft, size_t idxRight,
                         int pointIdxLeft, int pointIdxRight) :
-            
             Spring (all_objects [idxLeft]->getPointPos (pointIdxLeft),
                     all_objects [idxRight]->getPointPos (pointIdxRight),
                     hardness),
@@ -11,6 +10,8 @@ SpringPair::SpringPair (darray <Body*> all_objects, PHYSENG_DATA_TYPE hardness,
             point_left (pointIdxLeft),
             point_right (pointIdxRight)
     {
+    leftPtr = all_objects [idxLeft];
+    rightPtr = all_objects [idxRight];
     }
 
 
