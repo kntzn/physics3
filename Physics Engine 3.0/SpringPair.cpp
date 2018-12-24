@@ -18,7 +18,8 @@ SpringPair::~SpringPair ()
     {
     }
 
-void SpringPair::update (darray<Body*> all_objects, PHYSENG_DATA_TYPE dt)
+
+void SpringPair::update (darray<Body*> all_objects)
     {
     Spring::update (all_objects [id_left]->getPointPos (point_left),
                     all_objects [id_right]->getPointPos (point_right));

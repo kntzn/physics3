@@ -12,7 +12,7 @@ class SpringPair : public Spring, public Pair
                     int pointIdxLeft/* = -1*/, int pointIdxRight/* = -1*/);
         ~SpringPair ();
 
-        void update (darray <Body*> all_objects, PHYSENG_DATA_TYPE dt);
+        void update (darray <Body*> all_objects);
 
         PHYSENG_DATA_TYPE getPotEnergy ();
     };

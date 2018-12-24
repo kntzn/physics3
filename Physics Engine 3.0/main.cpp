@@ -46,7 +46,7 @@ int main()
     for (int i = 0; i < 1000; i++)
         {
         for (arrln i = 0; i < object_pairs.size (); i++)
-            object_pairs [i]->update (all_objects, dt_c);
+            object_pairs [i]->update (all_objects);
       
         for (arrln i = 0; i < all_objects.size (); i++)
             all_objects [i]->integrateEUL (dt_c);
@@ -72,60 +72,10 @@ int main()
     return 0;
     }
 
-
-//void RK4 (darray <Body*> all_objects,
-//        darray <Pair*> object_pairs);
-
-Derivative evaluate (const State & initial,
-                     PHYSENG_DATA_TYPE dt,
-                     const Derivative & d)
+void updateAllPairs (darray <Body*> &all_objects,
+                     darray <Pair*> &object_pairs)
     {
-    State new_state;
-    new_state.r = initial.r + d.dr*dt;
-    new_state.v = initial.v + d.dv*dt;
-
-    new_state.angle = initial.angle + d.dr*dt;
-    new_state.omega = initial.omega + d.dv*dt;
-
-    // the biggest problem 
-    // acceleration values
-    new_state.a;
-    new_state.aAng;
-
-
-    Derivative output;
-    output.dr = new_state.v;
-    output.dAng = new_state.omega;
-
-    output.dv = new_state.a;
-    output.dw = new_state.aAng;
-
-    return output;
+    for (int i = 0; i < object_pairs.size (); i++)
+        object_pairs [i]->update (all_objects);
     }
 
-/*
-void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
-    {
-    Derivative a, b, c, d;
-
-    a = evaluate (state, 0.0, Derivative ());
-    b = evaluate (state, dt * 0.5, a);
-    c = evaluate (state, dt * 0.5, b);
-    d = evaluate (state, dt, c);
-
-    Vectord drdt = Vectord (a.dr + Vectord ((b.dr + c.dr) * 2.0) + d.dr) / 6.0;
-    Vectord dvdt = Vectord (a.dv + Vectord ((b.dv + c.dv) * 2.0) + d.dv) / 6.0;
-
-    state.r += Vectord (drdt * dt);
-    state.v += Vectord (dvdt * dt);
-    state.a = Vectord (0, 0);
-    }
-
-void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
-    {
-    state.v += Vectord (state.a * dt);
-    state.r += Vectord (state.v * dt);
-    state.a = Vectord (0, 0);
-    }
-
-*/

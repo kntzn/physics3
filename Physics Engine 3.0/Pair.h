@@ -18,7 +18,7 @@ class Pair
             }
 
     public:
-        virtual void update (darray <Body*> all_objects, PHYSENG_DATA_TYPE dt) = 0;
+        virtual void update (darray <Body*> all_objects) = 0;
 
         virtual double getPotEnergy () = 0;
 
