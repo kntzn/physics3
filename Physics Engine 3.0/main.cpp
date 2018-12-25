@@ -16,17 +16,21 @@
 
 #define printLine printf ("File %s\n\tLine %d\n\n", __FILE__, __LINE__)
 
-Vectord acceleration (State state,
+State acceleration (State state,
                       darray <Body*> &all_objects,
                       darray <Pair*> &object_pairs,
                       Body* body);
 
-int main() 
+void integrateRK4 (PHYSENG_DATA_TYPE dt,
+                   darray <Body*> &all_objects,
+                   darray <Pair*> &object_pairs);
+
+int main ()
     {
     const double dt_c = 0.01;
 
     darray <Vectord> pArr;
-    
+
     pArr.push_back (Vectord (-0.5, 0.5));
     pArr.push_back (Vectord (0.5, 0.5));
     pArr.push_back (Vectord (0.5, -0.5));
@@ -38,33 +42,47 @@ int main()
     darray <Body*> all_objects;
     darray <Pair*> object_pairs;
 
-    all_objects.push_back (&mp);
-    all_objects.push_back (&mp1);
+    //all_objects.push_back (&mp);
+    //all_objects.push_back (&mp1);
 
-    SpringPair sp (all_objects, 100.0, 0, 1, 2, 3);
+    //for (int i = 0; i < 10; i++)
+        //all_objects.push_back (new Body (Vectord (rand ()%10, rand()%10), 10.0, Vectord (10, 0), 4, pArr));
 
-    object_pairs.push_back (&sp);
+    //SpringPair sp (all_objects, 100.0, 0, 1, 2, 3);
 
-    all_objects.push_back (&mp);
-    all_objects.push_back (&mp1);
+    //object_pairs.push_back (&sp);
 
-    for (int i = 0; i < 1000; i++)
+    //all_objects.push_back (&mp);
+    //all_objects.push_back (&mp1);
+    
+    #define N 10
+
+    for (int i = 0; i < N; i++)
+        all_objects.push_back (new Body (Vectord (rand()%10, rand()%10), 1.0, Vectord (i-5, i-5), 4, pArr));
+
+    for (int i = 0; i < N; i++)
+        for (int j = i + 1; j < N; j++)
+            {
+            object_pairs.push_back (new SpringPair (all_objects, 10.0, i, j, 0, 1));
+            }
+
+
+    for (int i = 0; i < 10000; i++)
         {
-        /*
+        
         for (arrln i = 0; i < object_pairs.size (); i++)
             object_pairs [i]->update (all_objects);
       
         for (arrln i = 0; i < all_objects.size (); i++)
             all_objects [i]->integrateEUL (dt_c);
-*/
-        State state;
-        state.r = Vectord (-10.0 - double (i) / 100, 0);
 
-        Vectord acc = acceleration (state, all_objects, object_pairs, all_objects [0]);
+       /*
+        integrateRK4 (dt_c, 
+                      all_objects,
+                      object_pairs);
+             */
 
         
-
-        /*
         PHYSENG_DATA_TYPE e = 0;
 
         for (arrln i = 0; i < all_objects.size (); i++)
@@ -72,7 +90,7 @@ int main()
         for (arrln i = 0; i < object_pairs.size (); i++)
             e += object_pairs [i]->getPotEnergy ();
 
-        printf ("%lf, ", e);*/
+        printf ("%lf, ", e);
         }
 
 
@@ -101,8 +119,13 @@ State acceleration (State state,
     State initial = *(body->getState ());
 
     state.a = Vectord (0, 0);
+    state.aAng = 0.0;
+
+    *(body->getState ());
+
     *(body->getState ()) = state;
 
+    *(body->getState ());
  
     for (int i = 0; i < object_pairs.size (); i++)
         if (object_pairs [i]->getLeft () == body ||
@@ -135,7 +158,7 @@ Derivative evaluate (Body* body,
     new_state.aAng = accelerated_state.aAng;
 
     Derivative output;
-    output.dr = new_state.v;
+    output.dr   = new_state.v;
     output.dAng = new_state.omega;
 
     output.dv = new_state.a;
@@ -144,24 +167,70 @@ Derivative evaluate (Body* body,
     return output;
     }
 
+
+void integrateRK4 (PHYSENG_DATA_TYPE dt,
+                   darray <Body*> &all_objects,
+                   darray <Pair*> &object_pairs)
+    {
+    darray <Derivative> a, b, c, d;
+
+    //std::cout << "before a: " << all_objects [0]->getState ()->angle << std::endl;
+
+    for (int i = 0; i < all_objects.size (); i++)
+        a.push_back (evaluate (all_objects [i],
+                     *all_objects [i]->getState (),
+                     0.0,
+                     Derivative (),
+                     all_objects,
+                     object_pairs));
+
+    //std::cout << "before b: " << all_objects [0]->getState ()->angle << std::endl;
+
+    for (int i = 0; i < all_objects.size (); i++)
+        b.push_back (evaluate (all_objects [i],
+                     *all_objects [i]->getState (),
+                     dt * 0.5,
+                     a [i],
+                     all_objects,
+                     object_pairs));
+
+    for (int i = 0; i < all_objects.size (); i++)
+        c.push_back (evaluate (all_objects [i],
+                     *all_objects [i]->getState (),
+                     dt * 0.5,
+                     b [i],
+                     all_objects,
+                     object_pairs));
+
+    for (int i = 0; i < all_objects.size (); i++)
+        d.push_back (evaluate (all_objects [i],
+                     *all_objects [i]->getState (),
+                     dt,
+                     c [i],
+                     all_objects,
+                     object_pairs));
+
+    for (int i = 0; i < all_objects.size (); i++)
+        {
+        Vectord drdt = Vectord (a [i].dr + Vectord ((b [i].dr + c [i].dr) * 2.0) + d [i].dr) / 6.0;
+        Vectord dvdt = Vectord (a [i].dv + Vectord ((b [i].dv + c [i].dv) * 2.0) + d [i].dv) / 6.0;
+
+        PHYSENG_DATA_TYPE dAngdt = (a [i].dAng + ((b [i].dAng + c [i].dAng) * 2.0) + d [i].dAng) / 6.0;
+        PHYSENG_DATA_TYPE dwdt   = (a [i].dw   + ((b [i].dw   + c [i].dw)   * 2.0) + d [i].dw)   / 6.0;
+
+        
+
+        all_objects [i]->getState ()->r += drdt * dt;
+        all_objects [i]->getState ()->v += dvdt * dt;
+        all_objects [i]->getState ()->a = Vectord (0, 0);
+
+        all_objects [i]->getState ()->angle += dAngdt * dt;
+        all_objects [i]->getState ()->omega += dwdt * dt;
+        all_objects [i]->getState ()->aAng  = 0.0;
+        }
+    }
+
 /*
-void MPoint::integrateRK4 (PHYSENG_DATA_TYPE dt)
-{
-Derivative a, b, c, d;
-
-a = evaluate (state, 0.0, Derivative ());
-b = evaluate (state, dt * 0.5, a);
-c = evaluate (state, dt * 0.5, b);
-d = evaluate (state, dt, c);
-
-Vectord drdt = Vectord (a.dr + Vectord ((b.dr + c.dr) * 2.0) + d.dr) / 6.0;
-Vectord dvdt = Vectord (a.dv + Vectord ((b.dv + c.dv) * 2.0) + d.dv) / 6.0;
-
-state.r += Vectord (drdt * dt);
-state.v += Vectord (dvdt * dt);
-state.a = Vectord (0, 0);
-}
-
 void MPoint::integrateEUL (PHYSENG_DATA_TYPE dt)
 {
 state.v += Vectord (state.a * dt);

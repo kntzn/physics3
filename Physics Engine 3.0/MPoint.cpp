@@ -8,6 +8,10 @@ MPoint::MPoint (Vectord position,
     m = mass;
     state.v = velocity;
     state.a = Vectord (0, 0);
+    
+    state.angle = 0.0;
+    state.omega = 0.0;
+    state.aAng  = 0.0;
     }
 
 MPoint::~MPoint ()
