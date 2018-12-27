@@ -44,6 +44,7 @@ StreamErrorCodes console :: read (char* str, unsigned* length)
 
 StreamErrorCodes console :: write (const char* str, unsigned length)
     {
+    length++;
     std :: cout << std :: string(str);
 
     return ERRNO;

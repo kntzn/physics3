@@ -11,6 +11,7 @@
 *.exe
 *.save
 *temp
+log.txt
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
