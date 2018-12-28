@@ -138,7 +138,7 @@ inline dataType & darray<dataType>::operator[](sarrln index)
         index += currentLen;
 
     if (!(0 <= index && index < (int) currentLen))
-        printf ("index was %d / %d\n", index, currentLen);
+        printf ("index was %d / %zu\n", index, currentLen);
     assert (0 <= index && index < (int) currentLen);
 
     return container [index];
