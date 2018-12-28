@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		86AE0EC921BF09E100D250B1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86AE0EC821BF09E100D250B1 /* main.cpp */; };
 		86CC269721C5474300D6800F /* MPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86CC269321C5474200D6800F /* MPoint.cpp */; };
+		86E038CA21D679B200C7F609 /* IteratorRange.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86E038C921D679B200C7F609 /* IteratorRange.cpp */; };
+		86E038D321D67ACB00C7F609 /* Spring.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86E038CB21D67ACA00C7F609 /* Spring.cpp */; };
+		86E038D421D67ACB00C7F609 /* Body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86E038CF21D67ACB00C7F609 /* Body.cpp */; };
+		86E038D521D67ACB00C7F609 /* SpringPair.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 86E038D221D67ACB00C7F609 /* SpringPair.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +38,15 @@
 		86CC269621C5474300D6800F /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		86CC269821C54AC900D6800F /* profiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = profiler.h; sourceTree = "<group>"; };
 		86CC269A21C6317700D6800F /* ErrorController */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ErrorController; sourceTree = "<group>"; };
+		86E038C921D679B200C7F609 /* IteratorRange.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = IteratorRange.cpp; sourceTree = "<group>"; };
+		86E038CB21D67ACA00C7F609 /* Spring.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Spring.cpp; path = "Physics Engine 3.0/Spring.cpp"; sourceTree = "<group>"; };
+		86E038CC21D67ACA00C7F609 /* Pair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Pair.h; path = "Physics Engine 3.0/Pair.h"; sourceTree = "<group>"; };
+		86E038CD21D67ACA00C7F609 /* output.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = output.txt; path = "Physics Engine 3.0/output.txt"; sourceTree = "<group>"; };
+		86E038CE21D67ACA00C7F609 /* Body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Body.h; path = "Physics Engine 3.0/Body.h"; sourceTree = "<group>"; };
+		86E038CF21D67ACB00C7F609 /* Body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Body.cpp; path = "Physics Engine 3.0/Body.cpp"; sourceTree = "<group>"; };
+		86E038D021D67ACB00C7F609 /* Spring.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Spring.h; path = "Physics Engine 3.0/Spring.h"; sourceTree = "<group>"; };
+		86E038D121D67ACB00C7F609 /* SpringPair.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpringPair.h; path = "Physics Engine 3.0/SpringPair.h"; sourceTree = "<group>"; };
+		86E038D221D67ACB00C7F609 /* SpringPair.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpringPair.cpp; path = "Physics Engine 3.0/SpringPair.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +65,14 @@
 			children = (
 				86CC269A21C6317700D6800F /* ErrorController */,
 				86AE0EC721BF09E100D250B1 /* Physics Engine 3.0 */,
+				86E038CF21D67ACB00C7F609 /* Body.cpp */,
+				86E038CE21D67ACA00C7F609 /* Body.h */,
+				86E038CD21D67ACA00C7F609 /* output.txt */,
+				86E038CC21D67ACA00C7F609 /* Pair.h */,
+				86E038CB21D67ACA00C7F609 /* Spring.cpp */,
+				86E038D021D67ACB00C7F609 /* Spring.h */,
+				86E038D221D67ACB00C7F609 /* SpringPair.cpp */,
+				86E038D121D67ACB00C7F609 /* SpringPair.h */,
 				86AE0EC621BF09E100D250B1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +91,7 @@
 				86AE0EC821BF09E100D250B1 /* main.cpp */,
 				86872B7121C01225007F21E1 /* darray.h */,
 				86872B7021C01225007F21E1 /* list.h */,
+				86E038C921D679B200C7F609 /* IteratorRange.cpp */,
 				86CC269621C5474300D6800F /* config.h */,
 				86CC269321C5474200D6800F /* MPoint.cpp */,
 				86CC269521C5474300D6800F /* MPoint.h */,
@@ -135,8 +157,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86E038D521D67ACB00C7F609 /* SpringPair.cpp in Sources */,
 				86CC269721C5474300D6800F /* MPoint.cpp in Sources */,
 				86AE0EC921BF09E100D250B1 /* main.cpp in Sources */,
+				86E038D321D67ACB00C7F609 /* Spring.cpp in Sources */,
+				86E038CA21D679B200C7F609 /* IteratorRange.cpp in Sources */,
+				86E038D421D67ACB00C7F609 /* Body.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
