@@ -7,20 +7,55 @@
 //
 
 #pragma once
+#include <algorithm>
 #include <iterator>
 
-template <typename typeOfContainer> class IteratorRange 
+/*
+USAGE EXAMPLE:
+#include "IteratorRange.cpp"
+
+    ...
+std::vector <int> tempVector { 1, 2, 3, 4, 5, 6 };
+  
+    for (  auto currentElement : UpTo ( tempVector, 4 ) )
+        {
+        printf ( "OUTPUT: %d\n", currentElement );
+        }
+    ...
+*/
+
+/*
+REQUIRES PREDEFINED CONTAINER'S begin() & end() methods;
+*/
+
+
+
+template <typename Iterator> class IteratorRange 
     {
     public:
-        IteratorRange ( typeOfContainer begin, typeOfContainer end ):
+        IteratorRange ( Iterator begin, Iterator end ):
             first ( begin ),
             last  ( end )
             {
             
             }
                     
+    Iterator begin() const
+        {
+        return first;
+        }
+        
+    Iterator end() const 
+        {
+        return last;
+        }
                     
     private:
-        typeOfContainer first = NULL;
-        typeOfContainer last = NULL;
+        Iterator first = NULL;
+        Iterator last = NULL;
     };
+
+template <typename Container> auto UpTo ( Container& inputContainer, size_t top )
+    {
+    return IteratorRange { inputContainer.begin(), next ( inputContainer.begin(), std::min ( top, inputContainer.size() ) ) };
+    }
