@@ -13,10 +13,15 @@ template <typename dataType> struct Node
     Node* next;
     Node* prev;
 
-
-        
-    Node ( dataType value = NULL, Node* left = nullptr, Node* right = nullptr ):
+    Node ( dataType value, Node* left = nullptr, Node* right = nullptr ):
         value ( value ),
+        prev ( left ),
+        next ( right )
+        {
+        }
+
+
+    Node ( Node* left = nullptr, Node* right = nullptr ):
         prev ( left ),
         next ( right )
         {
@@ -35,7 +40,7 @@ template <typename dataType> class List
         
         
         // ----Memory-safety precautions
-        dataType poisonValue = -777;
+        
         Node <dataType>* borderBack  = nullptr;
         Node <dataType>* borderFront = nullptr;
         
@@ -55,23 +60,54 @@ template <typename dataType> class List
 
             this->reservedCapacity = reservedCapacity;
             }
-            
-        void clear()
+          
+        // -------- DEEP BETA  ---------------------------------------------------------------------------
+        // ---- Iterating backend
+        dataType* begin() 
             {
-            *front = { poisonValue, borderFront, back };
-            *back = { poisonValue, borderBack, front };
-            *borderFront = { poisonValue, borderFront, front };
-            *borderBack = { poisonValue, back, borderBack };
+            return front;
+            }
+            
+        dataType* end()
+            {
+            return back;
+            }
+            
+        //// ↑ non-const ones;
+        //// ↓ const methods;
+        
+        const Node <dataType>* begin() const
+            {
+            return front;
+            }
+            
+        const Node <dataType>* end() const
+            {
+            return back;
+            }
+            
+        // ------    
+        
+        // ------------------------------------------------------------------------------------------------
+        
+
+        
+        void clear() // puts key elements to their default position relatively to each other;
+            {
+            *front = { borderFront, back };
+            *back = { borderBack, front };
+            *borderFront = { borderFront, front };
+            *borderBack = { back, borderBack };
             }
         
         
-        size_t size()
+        size_t size() // returns quantity of filled cells;
             {
             return currentLength;
             }
 
         
-        void push_back ( dataType value )
+        void push_back ( dataType value ) 
             {
             Node <dataType>* newElement = new Node ( value, back, borderBack );
             back->next = newElement;
@@ -136,7 +172,7 @@ template <typename dataType> class List
             }
         
         
-        void insert ( dataType value, size_t index )
+        void insert ( dataType value, size_t index ) // inserts new value in a such way that now: tempList [ index ] = value;
             {
             Node <dataType>* currentElement = front;
             
@@ -156,7 +192,7 @@ template <typename dataType> class List
             }
             
         #ifdef prsVal
-        dataType erase ( size_t index )
+        dataType erase ( size_t index )  // erases cell with index = index;
         #else
         void erase ( size_t index )
         #endif
@@ -187,7 +223,7 @@ template <typename dataType> class List
             }
 
 
-        const dataType& operator[] ( size_t index ) const
+        const dataType& operator[] ( size_t index ) const // subscription 
             {
             Node <dataType>* currentElement = front;
             
@@ -203,8 +239,8 @@ template <typename dataType> class List
         
         // TODO:
         // Container getters
-        // begin
-        // end
+        // begin [IMPOSSIBLE FOR NOW]
+        // end [IMPOSSIBLE FOR NOW]
 
         // Modifiers
         //void push_back (dataType value); [DONE]
