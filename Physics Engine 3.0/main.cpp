@@ -46,10 +46,12 @@ int main()
     for (int i = 0; i < 1000; i++)
         {
         for (arrln i = 0; i < object_pairs.size (); i++)
-            object_pairs [i]->update (all_objects, dt_c);
+            object_pairs [i]->update (all_objects);
       
         for (arrln i = 0; i < all_objects.size (); i++)
             all_objects [i]->integrateEUL (dt_c);
+
+
 
         PHYSENG_DATA_TYPE e = 0;
 
