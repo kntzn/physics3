@@ -9,10 +9,13 @@
 //  Copyright © 2018 kntzn. All rights reserved.
 //
 #include <iostream>
+#include <ctime>
 #include "MPoint.h"
 #include "Spring.h"
 #include "Body.h"
 #include "SpringPair.h"
+
+#define RK4
 
 #define printLine printf ("File %s\n\tLine %d\n\n", __FILE__, __LINE__)
 
@@ -63,24 +66,32 @@ int main ()
     for (int i = 0; i < N; i++)
         for (int j = i + 1; j < N; j++)
             {
-            object_pairs.push_back (new SpringPair (all_objects, 10.0, i, j, 0, 1));
+            object_pairs.push_back (new SpringPair (all_objects, 10.0, i, j, 0, 3));
             }
+    
+    clock_t strt = clock ();
 
+    #undef RK4
 
     for (int i = 0; i < 10000; i++)
         {
+            
         
-        for (arrln i = 0; i < object_pairs.size (); i++)
-            object_pairs [i]->update (all_objects);
-      
-        for (arrln i = 0; i < all_objects.size (); i++)
-            all_objects [i]->integrateEUL (dt_c);
-
-       /*
-        integrateRK4 (dt_c, 
+        #ifdef RK4
+        integrateRK4 (dt_c,
                       all_objects,
                       object_pairs);
-             */
+        #else
+        for (arrln i = 0; i < object_pairs.size (); i++)
+            object_pairs [i]->update (all_objects);
+
+        for (arrln i = 0; i < all_objects.size (); i++)
+            all_objects [i]->integrateEUL (dt_c);
+        #endif
+ 
+        for (arrln i = 0; i < all_objects.size (); i++)
+            std::cout << "before a: " << all_objects [i]->getState ()->angle << std::endl;
+
 
         
         PHYSENG_DATA_TYPE e = 0;
@@ -90,10 +101,10 @@ int main ()
         for (arrln i = 0; i < object_pairs.size (); i++)
             e += object_pairs [i]->getPotEnergy ();
 
-        printf ("%lf, ", e);
+        
         }
 
-
+    printf ("%d, ", clock () - strt);
 
     #ifdef __APPLE__
         getchar();
